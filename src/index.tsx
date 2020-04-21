@@ -5,48 +5,18 @@ import 'semantic-ui-css/semantic.min.css';
 import { createStore } from 'redux';
 import { Provider } from 'react-redux';
 import { composeWithDevTools } from 'redux-devtools-extension';
-import {
-  BrowserRouter as Router,
-  Switch,
-  Route,
-  withRouter,
-  RouteComponentProps,
-} from 'react-router-dom';
 
-import firebase from './firebase';
+import { BrowserRouter as Router } from 'react-router-dom';
+
 import { rootReducer } from './Store/Reducers/Index';
-import App from './Components/App';
-import Login from './Components/Auth/Login';
-import Register from './Components/Auth/Register';
+import Root from './Components/Root';
+
 const store = createStore(rootReducer, composeWithDevTools());
-
-export class Root extends React.Component<RouteComponentProps> {
-  componentDidMount() {
-    firebase.auth().onAuthStateChanged((user) => {
-      if (user) {
-        console.log(user);
-        this.props.history.push('/');
-      }
-    });
-  }
-
-  render() {
-    return (
-      <Switch>
-        <Route exact path='/' component={App} />
-        <Route path='/login' component={Login} />
-        <Route path='/register' component={Register} />
-      </Switch>
-    );
-  }
-}
-
-const RootWithAuth = withRouter(Root);
 
 ReactDOM.render(
   <Provider store={store}>
     <Router>
-      <RootWithAuth />{' '}
+      <Root />{' '}
     </Router>
   </Provider>,
   document.getElementById('root')
