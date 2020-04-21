@@ -10,13 +10,15 @@ import App from './App';
 import Login from './Auth/Login';
 import Register from './Auth/Register';
 import { connect } from 'react-redux';
-import { setUser } from '../Store/Actions/index';
 import { IUser } from '../Interfaces/Auth';
 import { RootState } from '../Store/Reducers/Index';
 import Spinner from '../spinner';
 
+import { setUser, clearUser } from '../Store/Actions/index';
+
 interface IDispatch {
   setUser: (user: any) => void;
+  clearUser: () => void;
 }
 interface IState {
   isLoading: boolean;
@@ -32,6 +34,9 @@ class Root extends React.Component<IProp, {}> {
         console.log(user);
         this.props.setUser(user);
         this.props.history.push('/');
+      } else {
+        this.props.history.push('/login');
+        this.props.clearUser();
       }
     });
   }
@@ -52,6 +57,9 @@ const mapDispatchToProps = (dispatch: any): IDispatch => {
   return {
     setUser: (user: IUser) => {
       dispatch(setUser(user));
+    },
+    clearUser: () => {
+      dispatch(clearUser());
     },
   };
 };
