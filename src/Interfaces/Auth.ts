@@ -35,4 +35,4 @@ export interface IUser {
   createdAt: string;
   multiFactor: any;
 }
-export type TUser = IUser | null;
+export type TUser = IUser | null | undefined;

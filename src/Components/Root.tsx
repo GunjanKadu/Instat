@@ -11,7 +11,7 @@ import Login from './Auth/Login';
 import Register from './Auth/Register';
 import { connect } from 'react-redux';
 import { IUser } from '../Interfaces/Auth';
-import { RootState } from '../Store/Reducers/Index';
+import { IRootState } from '../Store/Reducers/Index';
 import Spinner from '../spinner';
 
 import { setUser, clearUser } from '../Store/Actions/index';
@@ -31,7 +31,6 @@ class Root extends React.Component<IProp, {}> {
     console.log(this.props.isLoading);
     firebase.auth().onAuthStateChanged((user) => {
       if (user) {
-        console.log(user);
         this.props.setUser(user);
         this.props.history.push('/');
       } else {
@@ -63,7 +62,7 @@ const mapDispatchToProps = (dispatch: any): IDispatch => {
     },
   };
 };
-const mapStateToProps = (state: RootState): IState => {
+const mapStateToProps = (state: IRootState): IState => {
   return {
     isLoading: state.user.isLoading,
   };
