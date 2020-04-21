@@ -8,3 +8,8 @@ export const setUser = (user: IUser): IActions.ISetUser => {
     payload: user,
   };
 };
+export const clearUser = (): IActions.IClearUser => {
+  return {
+    type: actionTypes.CLEAR_USER,
+  };
+};
