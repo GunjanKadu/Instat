@@ -1,13 +1,10 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import App from './Components/App';
-import Login from './Components/Auth/Login';
-import Register from './Components/Auth/Register';
 import * as serviceWorker from './serviceWorker';
-
 import 'semantic-ui-css/semantic.min.css';
-import firebase from './firebase';
-
+import { createStore } from 'redux';
+import { Provider } from 'react-redux';
+import { composeWithDevTools } from 'redux-devtools-extension';
 import {
   BrowserRouter as Router,
   Switch,
@@ -16,11 +13,12 @@ import {
   RouteComponentProps,
 } from 'react-router-dom';
 
-import { createStore } from 'redux';
-import { Provider } from 'react-redux';
-import { composeWithDevTools } from 'redux-devtools-extension';
-
-const store = createStore(() => {}, composeWithDevTools());
+import firebase from './firebase';
+import { rootReducer } from './Store/Reducers/Index';
+import App from './Components/App';
+import Login from './Components/Auth/Login';
+import Register from './Components/Auth/Register';
+const store = createStore(rootReducer, composeWithDevTools());
 
 export class Root extends React.Component<RouteComponentProps> {
   componentDidMount() {
