@@ -16,10 +16,17 @@ import {
   RouteComponentProps,
 } from 'react-router-dom';
 
+import { createStore } from 'redux';
+import { Provider } from 'react-redux';
+import { composeWithDevTools } from 'redux-devtools-extension';
+
+const store = createStore(() => {}, composeWithDevTools());
+
 export class Root extends React.Component<RouteComponentProps> {
   componentDidMount() {
     firebase.auth().onAuthStateChanged((user) => {
       if (user) {
+        console.log(user);
         this.props.history.push('/');
       }
     });
@@ -39,9 +46,11 @@ export class Root extends React.Component<RouteComponentProps> {
 const RootWithAuth = withRouter(Root);
 
 ReactDOM.render(
-  <Router>
-    <RootWithAuth />{' '}
-  </Router>,
+  <Provider store={store}>
+    <Router>
+      <RootWithAuth />{' '}
+    </Router>
+  </Provider>,
   document.getElementById('root')
 );
 
