@@ -24,7 +24,7 @@ interface IState {
 
 type IProp = RouteComponentProps & IDispatch & IState;
 
-class Root extends React.Component<IProp> {
+class Root extends React.Component<IProp, {}> {
   componentDidMount() {
     console.log(this.props.isLoading);
     firebase.auth().onAuthStateChanged((user) => {
