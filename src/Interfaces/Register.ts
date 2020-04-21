@@ -3,4 +3,5 @@ export interface IRegister {
   email: string;
   password: string;
   passwordConfirmation: string;
+  errors: Array<any>;
 }

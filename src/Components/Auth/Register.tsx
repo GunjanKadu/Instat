@@ -18,30 +18,74 @@ class Register extends Component<{}, Partial<I.IRegister>> {
     email: '',
     password: '',
     passwordConfirmation: '',
+    errors: [],
   };
+
+  isFormValid = () => {
+    let errors: any = [];
+    let error;
+    if (this.isFormEmpty(this.state)) {
+      error = { message: 'Fill in All fields' };
+      this.setState({ errors: errors.concat(error) });
+      return false;
+    } else if (this.isPasswordValid(this.state)) {
+      error = { message: 'Password is Invalid' };
+      this.setState({ errors: errors.concat(error) });
+      return false;
+    } else {
+      return true;
+    }
+  };
+
+  isFormEmpty({
+    userName,
+    email,
+    password,
+    passwordConfirmation,
+  }: I.IRegister) {
+    if (!userName || !email || !password || !passwordConfirmation) {
+      return true;
+    } else {
+      return false;
+    }
+    //return !userName || !email || !password || !passwordConfirmation;
+  }
+
+  isPasswordValid({ password, passwordConfirmation }: I.IRegister) {
+    if (password.length < 6 || passwordConfirmation.length < 6) {
+      return true;
+    } else if (password !== passwordConfirmation) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
   handleChange = (event: { target: { name: string; value: string } }): void => {
     this.setState({ [event.target.name]: event.target.value });
   };
 
   handleSubmit = (event: React.SyntheticEvent): void => {
-    event.preventDefault();
-    firebase
-      .auth()
-      .createUserWithEmailAndPassword(this.state.email, this.state.password)
-      .then((createdUser) => {
-        console.log(createdUser);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+    if (this.isFormValid()) {
+      event.preventDefault();
+      firebase
+        .auth()
+        .createUserWithEmailAndPassword(this.state.email, this.state.password)
+        .then((createdUser) => {
+          console.log(createdUser);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    }
   };
   render() {
     const { userName, email, password, passwordConfirmation } = this.state;
     return (
       <Grid textAlign='center' verticalAlign='middle' className='app'>
         <Grid.Column style={{ maxWidth: 450 }}>
-          <Header as='h2' icon color='orange' textAlign='center'>
-            <Icon name='puzzle piece' color='orange' />
+          <Header as='h2' icon color='red' textAlign='center'>
+            <Icon name='puzzle piece' color='red' />
             Register For DevChat
           </Header>
           <Form size='large' onSubmit={this.handleSubmit}>
@@ -86,7 +130,7 @@ class Register extends Component<{}, Partial<I.IRegister>> {
                 onChange={this.handleChange}
                 type='password'
               />
-              <Button color='orange' fluid type='submit' size='large'>
+              <Button color='red' fluid type='submit' size='large'>
                 Submit
               </Button>
             </Segment>
@@ -99,5 +143,4 @@ class Register extends Component<{}, Partial<I.IRegister>> {
     );
   }
 }
-
 export default Register;
