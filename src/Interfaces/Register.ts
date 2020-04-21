@@ -5,5 +5,6 @@ export interface IRegister {
   passwordConfirmation: string;
   errors: Array<{ message: string }>;
   loading: boolean;
+  userRef: firebase.database.Reference;
 }
 export type TError = Array<{ message: string }>;

@@ -11,6 +11,7 @@ import {
 import { Link } from 'react-router-dom';
 import firebase from '../../firebase';
 import * as I from '../../Interfaces/Register';
+import md5 from 'md5';
 
 class Register extends Component<{}, Partial<I.IRegister>> {
   state = {
@@ -20,6 +21,7 @@ class Register extends Component<{}, Partial<I.IRegister>> {
     passwordConfirmation: '',
     errors: new Array(),
     loading: false,
+    userRef: firebase.database().ref('users'),
   };
 
   displayError = (errors: any[]) =>
@@ -78,11 +80,36 @@ class Register extends Component<{}, Partial<I.IRegister>> {
       firebase
         .auth()
         .createUserWithEmailAndPassword(this.state.email, this.state.password)
-        .then((createdUser) => {
-          this.setState({ loading: false });
+        .then((createdUser: any) => {
+          createdUser.user
+            ?.updateProfile({
+              displayName: this.state.userName,
+              photoURL: `http://gravatar.com/avatar/${md5(
+                createdUser.user.email
+              )}?d=identicon`,
+            })
+            .then(() => {
+              this.saveUser(createdUser).then(() => {
+                console.log('user Saved');
+                this.setState({
+                  userName: '',
+                  email: '',
+                  password: '',
+                  passwordConfirmation: '',
+                  loading: false,
+                });
+              });
+            })
+            .catch((err: any) => {
+              this.setState({
+                errors: this.state.errors.concat(err),
+                loading: false,
+              });
+            });
+
           console.log(createdUser);
         })
-        .catch((err) => {
+        .catch((err: any) => {
           this.setState({
             errors: this.state.errors.concat(err),
             loading: false,
@@ -90,6 +117,12 @@ class Register extends Component<{}, Partial<I.IRegister>> {
           console.log(err);
         });
     }
+  };
+  saveUser = (createdUser: any) => {
+    return this.state.userRef.child(createdUser.user.uid).set({
+      name: createdUser.user.displayName,
+      avatar: createdUser.user.photoURL,
+    });
   };
   handleInputError = (errors: any, inputName: string) => {
     return errors.some((error: any) =>
