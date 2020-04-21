@@ -21,7 +21,12 @@ class Register extends Component<{}, Partial<I.IRegister>> {
     errors: [],
   };
 
-  isFormValid = () => {
+  displayError = (errors: any[]) =>
+    errors.map((error: { message: React.ReactNode }, i: number) => (
+      <p key={i}>{error.message}</p>
+    ));
+
+  isFormValid = (): boolean => {
     let errors: any = [];
     let error;
     if (this.isFormEmpty(this.state)) {
@@ -42,7 +47,7 @@ class Register extends Component<{}, Partial<I.IRegister>> {
     email,
     password,
     passwordConfirmation,
-  }: I.IRegister) {
+  }: I.IRegister): boolean {
     if (!userName || !email || !password || !passwordConfirmation) {
       return true;
     } else {
@@ -51,7 +56,7 @@ class Register extends Component<{}, Partial<I.IRegister>> {
     //return !userName || !email || !password || !passwordConfirmation;
   }
 
-  isPasswordValid({ password, passwordConfirmation }: I.IRegister) {
+  isPasswordValid({ password, passwordConfirmation }: I.IRegister): boolean {
     if (password.length < 6 || passwordConfirmation.length < 6) {
       return true;
     } else if (password !== passwordConfirmation) {
@@ -80,7 +85,13 @@ class Register extends Component<{}, Partial<I.IRegister>> {
     }
   };
   render() {
-    const { userName, email, password, passwordConfirmation } = this.state;
+    const {
+      userName,
+      email,
+      password,
+      passwordConfirmation,
+      errors,
+    } = this.state;
     return (
       <Grid textAlign='center' verticalAlign='middle' className='app'>
         <Grid.Column style={{ maxWidth: 450 }}>
@@ -135,6 +146,9 @@ class Register extends Component<{}, Partial<I.IRegister>> {
               </Button>
             </Segment>
           </Form>
+          {errors.length > 0 && (
+            <Message error>{this.displayError(this.state.errors)}</Message>
+          )}
           <Message>
             Already a user? <Link to='/login'>Login</Link>
           </Message>
