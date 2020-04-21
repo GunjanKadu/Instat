@@ -18,7 +18,8 @@ class Register extends Component<{}, Partial<I.IRegister>> {
     email: '',
     password: '',
     passwordConfirmation: '',
-    errors: [],
+    errors: new Array(),
+    loading: false,
   };
 
   displayError = (errors: any[]) =>
@@ -71,18 +72,31 @@ class Register extends Component<{}, Partial<I.IRegister>> {
   };
 
   handleSubmit = (event: React.SyntheticEvent): void => {
+    event.preventDefault();
     if (this.isFormValid()) {
-      event.preventDefault();
+      this.setState({ errors: [], loading: true });
       firebase
         .auth()
         .createUserWithEmailAndPassword(this.state.email, this.state.password)
         .then((createdUser) => {
+          this.setState({ loading: false });
           console.log(createdUser);
         })
         .catch((err) => {
+          this.setState({
+            errors: this.state.errors.concat(err),
+            loading: false,
+          });
           console.log(err);
         });
     }
+  };
+  handleInputError = (errors: any, inputName: string) => {
+    return errors.some((error: any) =>
+      error.message.toLowerCase().includes(inputName)
+    )
+      ? 'error'
+      : '';
   };
   render() {
     const {
@@ -91,6 +105,7 @@ class Register extends Component<{}, Partial<I.IRegister>> {
       password,
       passwordConfirmation,
       errors,
+      loading,
     } = this.state;
     return (
       <Grid textAlign='center' verticalAlign='middle' className='app'>
@@ -120,6 +135,7 @@ class Register extends Component<{}, Partial<I.IRegister>> {
                 placeholder='Email'
                 onChange={this.handleChange}
                 type='text'
+                className={this.handleInputError(errors, 'email')}
               />
               <Form.Input
                 fluid
@@ -129,6 +145,7 @@ class Register extends Component<{}, Partial<I.IRegister>> {
                 iconPosition='left'
                 placeholder='Password'
                 onChange={this.handleChange}
+                className={this.handleInputError(errors, 'password')}
                 type='password'
               />
               <Form.Input
@@ -139,9 +156,20 @@ class Register extends Component<{}, Partial<I.IRegister>> {
                 iconPosition='left'
                 placeholder='Password Confirmation'
                 onChange={this.handleChange}
+                className={this.handleInputError(
+                  errors,
+                  'passwordConfirmation'
+                )}
                 type='password'
               />
-              <Button color='red' fluid type='submit' size='large'>
+              <Button
+                disabled={loading}
+                className={loading ? 'loading' : ''}
+                color='red'
+                fluid
+                type='submit'
+                size='large'
+              >
                 Submit
               </Button>
             </Segment>

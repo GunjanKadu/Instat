@@ -3,5 +3,7 @@ export interface IRegister {
   email: string;
   password: string;
   passwordConfirmation: string;
-  errors: Array<any>;
+  errors: Array<{ message: string }>;
+  loading: boolean;
 }
+export type TError = Array<{ message: string }>;
