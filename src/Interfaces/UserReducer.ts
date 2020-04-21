@@ -1,4 +1,6 @@
+import * as I from '../Interfaces/Auth';
+
 export interface IUserState {
-  current: null;
+  currentUser: I.TUser;
   isLoading: boolean;
 }

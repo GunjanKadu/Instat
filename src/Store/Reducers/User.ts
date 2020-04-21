@@ -3,7 +3,7 @@ import * as I from '../../Interfaces/UserReducer';
 import { IAction } from '../../Interfaces/Action';
 
 const initialState: I.IUserState = {
-  current: null,
+  currentUser: null,
   isLoading: true,
 };
 
@@ -14,13 +14,13 @@ export const userReducer = (
   switch (action.type) {
     case actionTypes.SET_USER:
       return {
-        current: action.payload,
+        currentUser: action.payload,
         isLoading: false,
       };
     case actionTypes.CLEAR_USER:
       return {
         ...state,
-        current: null,
+        currentUser: null,
         isLoading: false,
       };
     default:
