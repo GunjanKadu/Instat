@@ -8,3 +8,11 @@ export interface IRegister {
   userRef: firebase.database.Reference;
 }
 export type TError = Array<{ message: string }>;
+
+export interface ILogin {
+  userName: string;
+  email: string;
+  password: string;
+  errors: Array<{ message: string }>;
+  loading: boolean;
+}
