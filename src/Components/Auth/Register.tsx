@@ -10,7 +10,7 @@ import {
 } from 'semantic-ui-react';
 import { Link } from 'react-router-dom';
 import firebase from '../../firebase';
-import * as I from '../../Interfaces/Register';
+import * as I from '../../Interfaces/Auth';
 import md5 from 'md5';
 
 class Register extends Component<{}, Partial<I.IRegister>> {
@@ -143,7 +143,7 @@ class Register extends Component<{}, Partial<I.IRegister>> {
     return (
       <Grid textAlign='center' verticalAlign='middle' className='app'>
         <Grid.Column style={{ maxWidth: 450 }}>
-          <Header as='h2' icon color='red' textAlign='center'>
+          <Header as='h1' icon color='red' textAlign='center'>
             <Icon name='puzzle piece' color='red' />
             Register For DevChat
           </Header>
