@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Grid, Header, Icon, Dropdown } from 'semantic-ui-react';
+import { Grid, Header, Icon, Dropdown, Image } from 'semantic-ui-react';
 import firebase from '../../../firebase';
 import { TUser } from '../../../Interfaces/Auth';
 
@@ -39,6 +39,7 @@ class UserPanel extends Component<IStateProps, IState> {
       .then(() => console.log('signed out!'));
   };
   render() {
+    const { user } = this.state;
     console.log(this.props.currentUser);
     return (
       <Grid style={{ background: '#3a133e' }}>
@@ -49,14 +50,19 @@ class UserPanel extends Component<IStateProps, IState> {
               <Icon name='paper plane' />
               <Header.Content>Instat</Header.Content>
             </Header>
+            {/* User DropDown */}
+            <Header style={{ padding: '0.25em' }} as='h4' inverted>
+              <Dropdown
+                trigger={
+                  <span>
+                    <Image src={user?.photoURL} spaced='right' avatar />
+                    {this.state.user?.displayName}
+                  </span>
+                }
+                options={this.dropDownOption()}
+              />
+            </Header>
           </Grid.Row>
-          {/* User DropDown */}
-          <Header style={{ padding: '0.25em' }} as='h4' inverted>
-            <Dropdown
-              trigger={<span>{this.state.user?.displayName}</span>}
-              options={this.dropDownOption()}
-            />
-          </Header>
         </Grid.Column>
       </Grid>
     );
