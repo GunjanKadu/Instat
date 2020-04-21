@@ -17,6 +17,12 @@ export const userReducer = (
         current: action.payload,
         isLoading: false,
       };
+    case actionTypes.CLEAR_USER:
+      return {
+        ...state,
+        current: null,
+        isLoading: false,
+      };
     default:
       return state;
   }
