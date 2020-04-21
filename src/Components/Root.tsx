@@ -11,9 +11,10 @@ import Login from './Auth/Login';
 import Register from './Auth/Register';
 import { connect } from 'react-redux';
 import { setUser } from '../Store/Actions/index';
+import { IUser } from '../Interfaces/Auth';
 
 interface IDispatch {
-  setUser: (user: any) => {};
+  setUser: (user: any) => void;
 }
 
 type IProp = RouteComponentProps & IDispatch;
@@ -39,4 +40,11 @@ class Root extends React.Component<IProp> {
     );
   }
 }
-export default withRouter(connect(null, { setUser })(Root));
+const mapDispatchToProps = (dispatch: any): IDispatch => {
+  return {
+    setUser: (user: IUser) => {
+      dispatch(setUser(user));
+    },
+  };
+};
+export default withRouter(connect(null, mapDispatchToProps)(Root));

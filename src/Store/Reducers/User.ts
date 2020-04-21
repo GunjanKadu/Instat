@@ -14,7 +14,7 @@ export const userReducer = (
   switch (action.type) {
     case actionTypes.SET_USER:
       return {
-        current: action.payload.currentUser,
+        current: action.payload,
         isLoading: false,
       };
     default:
