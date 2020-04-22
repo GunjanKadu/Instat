@@ -1,6 +1,6 @@
 import * as actionTypes from '../Actions/types';
-import * as I from '../../Interfaces/UserReducer';
-import { IAction } from '../../Interfaces/Action';
+import * as I from '../../Interfaces/Reducer';
+import { IActionUser } from '../../Interfaces/Action';
 
 const initialState: I.IUserState = {
   currentUser: null,
@@ -9,7 +9,7 @@ const initialState: I.IUserState = {
 
 export const userReducer = (
   state: I.IUserState = initialState,
-  action: IAction
+  action: IActionUser
 ): I.IUserState => {
   switch (action.type) {
     case actionTypes.SET_USER:

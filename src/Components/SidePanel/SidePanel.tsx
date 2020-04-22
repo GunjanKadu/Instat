@@ -4,7 +4,7 @@ import UserPanel from './UserPanel/UserPanel';
 import Channels from './Channels/Channels';
 import * as I from '../../Interfaces/SidePanel';
 
-class SidePanel extends Component<I.IProps> {
+class SidePanel extends Component<I.IOwnProps> {
   render() {
     const { currentUser } = this.props;
     return (

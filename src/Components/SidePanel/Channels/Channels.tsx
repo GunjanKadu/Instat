@@ -2,8 +2,10 @@ import React, { Component } from 'react';
 import firebase from '../../../firebase';
 import { Menu, Icon, Modal, Form, Input, Button } from 'semantic-ui-react';
 import * as I from '../../../Interfaces/SidePanel';
+import { connect } from 'react-redux';
+import { setChannel } from '../../../Store/Actions/index';
 
-class Channels extends Component<I.IProps, I.IChannel> {
+class Channels extends Component<I.IOwnProps, I.IChannel> {
   state = {
     user: this.props.currentUser,
     channels: new Array(),
@@ -65,7 +67,7 @@ class Channels extends Component<I.IProps, I.IChannel> {
     channels.map((channel: I.IChannelArray) => (
       <Menu.Item
         key={channel.id}
-        onClick={() => console.log(channel)}
+        onClick={() => this.changeChannel(channel)}
         name={channel.name}
         style={{ opacity: 0.7 }}
       >
@@ -78,6 +80,10 @@ class Channels extends Component<I.IProps, I.IChannel> {
       return true;
     }
     return false;
+  };
+  changeChannel = (channel: I.IChannelArray): void => {
+    // this.props.setChannel(channel);
+    this.props.setChannel(channel);
   };
 
   render() {
@@ -132,4 +138,11 @@ class Channels extends Component<I.IProps, I.IChannel> {
     );
   }
 }
-export default Channels;
+const mapDispatchToProps = (dispatch: any): I.IProps => {
+  return {
+    setChannel: (channel: I.IChannelArray) => {
+      dispatch(setChannel(channel));
+    },
+  };
+};
+export default connect(null, mapDispatchToProps)(Channels);
