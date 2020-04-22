@@ -6,7 +6,7 @@ export interface IProps {
 
 export interface IChannel {
   user?: TUser;
-  channels?: Array<any>;
+  channels?: IChannelArray[];
   modal?: boolean;
   channelName?: string;
   channelDetails?: string;
@@ -20,5 +20,15 @@ export interface INewChannel {
   createdBy: {
     name: string | undefined;
     avatar: string | undefined;
+  };
+}
+
+export interface IChannelArray {
+  details: string;
+  id: string;
+  name: string;
+  createdBy: {
+    avatar: string;
+    name: string;
   };
 }
