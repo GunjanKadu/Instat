@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Menu } from 'semantic-ui-react';
 import UserPanel from './UserPanel/UserPanel';
 import { TUser } from '../../Interfaces/Auth';
+import Channels from './Channels/Channels';
 
 interface IProps {
   currentUser?: TUser;
@@ -18,6 +19,7 @@ class SidePanel extends Component<IProps> {
         style={{ background: '#3a133e', fontSize: '1.2rem' }}
       >
         <UserPanel currentUser={currentUser} />
+        <Channels />
       </Menu>
     );
   }
