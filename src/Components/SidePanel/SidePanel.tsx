@@ -1,13 +1,10 @@
 import React, { Component } from 'react';
 import { Menu } from 'semantic-ui-react';
 import UserPanel from './UserPanel/UserPanel';
-import { TUser } from '../../Interfaces/Auth';
 import Channels from './Channels/Channels';
+import * as I from '../../Interfaces/SidePanel';
 
-interface IProps {
-  currentUser?: TUser;
-}
-class SidePanel extends Component<IProps> {
+class SidePanel extends Component<I.IProps> {
   render() {
     const { currentUser } = this.props;
     return (
@@ -19,7 +16,7 @@ class SidePanel extends Component<IProps> {
         style={{ background: '#3a133e', fontSize: '1.2rem' }}
       >
         <UserPanel currentUser={currentUser} />
-        <Channels />
+        <Channels currentUser={currentUser} />
       </Menu>
     );
   }
