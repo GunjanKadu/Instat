@@ -13,6 +13,16 @@ class Channels extends Component<I.IProps, I.IChannel> {
     channelsRef: firebase.database().ref('channels'),
   };
 
+  componentDidMount() {
+    this.addListeners();
+  }
+  addListeners = () => {
+    let loadedChannels: any = [];
+    this.state.channelsRef.on('child_added', (snap) => {
+      loadedChannels.push(snap.val());
+      this.setState({ channels: loadedChannels });
+    });
+  };
   openModal = (): void => this.setState({ modal: true });
 
   closeModal = (): void => this.setState({ modal: false });
@@ -50,6 +60,18 @@ class Channels extends Component<I.IProps, I.IChannel> {
       this.addChannel();
     }
   };
+  displayChannels = (channels: I.IChannelArray[]) =>
+    channels.length > 0 &&
+    channels.map((channel: I.IChannelArray) => (
+      <Menu.Item
+        key={channel.id}
+        onClick={() => console.log(channel)}
+        name={channel.name}
+        style={{ opacity: 0.7 }}
+      >
+        #{channel.name}
+      </Menu.Item>
+    ));
 
   isFormValid = ({ channelName, channelDetails }: I.IChannel): boolean => {
     if (channelName && channelDetails) {
@@ -69,7 +91,7 @@ class Channels extends Component<I.IProps, I.IChannel> {
             </span>{' '}
             ({channels.length})<Icon name='add' onClick={this.openModal} />
           </Menu.Item>
-          {/* Channels  */}
+          {this.displayChannels(channels)}
         </Menu.Menu>
 
         {/*  Add Channel Model */}
