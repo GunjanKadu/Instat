@@ -8,11 +8,13 @@ import { setChannel } from '../../../Store/Actions/index';
 class Channels extends Component<I.IOwnProps, I.IChannel> {
   state = {
     user: this.props.currentUser,
+    activeChannel: '',
     channels: new Array(),
     channelName: '',
     channelDetails: '',
     modal: false,
     channelsRef: firebase.database().ref('channels'),
+    firstLoad: true,
   };
 
   componentDidMount() {
@@ -22,9 +24,19 @@ class Channels extends Component<I.IOwnProps, I.IChannel> {
     let loadedChannels: any = [];
     this.state.channelsRef.on('child_added', (snap) => {
       loadedChannels.push(snap.val());
-      this.setState({ channels: loadedChannels });
+      this.setState({ channels: loadedChannels }, () => this.setFirstChannel());
     });
   };
+
+  setFirstChannel = () => {
+    if (this.state.firstLoad && this.state.channels.length > 0) {
+      const channel = this.state.channels[0];
+      this.props.setChannel(channel);
+      this.setActiveChannel(channel);
+    }
+    this.setState({ firstLoad: false });
+  };
+
   openModal = (): void => this.setState({ modal: true });
 
   closeModal = (): void => this.setState({ modal: false });
@@ -70,6 +82,7 @@ class Channels extends Component<I.IOwnProps, I.IChannel> {
         onClick={() => this.changeChannel(channel)}
         name={channel.name}
         style={{ opacity: 0.7 }}
+        active={channel.id === this.state.activeChannel}
       >
         #{channel.name}
       </Menu.Item>
@@ -82,8 +95,12 @@ class Channels extends Component<I.IOwnProps, I.IChannel> {
     return false;
   };
   changeChannel = (channel: I.IChannelArray): void => {
-    // this.props.setChannel(channel);
+    this.setActiveChannel(channel);
     this.props.setChannel(channel);
+  };
+
+  setActiveChannel = (channel: I.IChannelArray) => {
+    this.setState({ activeChannel: channel.id });
   };
 
   render() {
@@ -138,7 +155,7 @@ class Channels extends Component<I.IOwnProps, I.IChannel> {
     );
   }
 }
-const mapDispatchToProps = (dispatch: any): I.IProps => {
+const mapDispatchToProps = (dispatch: any): I.IReduxProps => {
   return {
     setChannel: (channel: I.IChannelArray) => {
       dispatch(setChannel(channel));

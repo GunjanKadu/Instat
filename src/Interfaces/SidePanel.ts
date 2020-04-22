@@ -11,12 +11,14 @@ export interface IReduxProps {
 export type IProps = IOwnProps | IReduxProps;
 
 export interface IChannel {
+  activeChannel?: string;
   user?: TUser;
   channels?: IChannelArray[];
   modal?: boolean;
   channelName?: string;
   channelDetails?: string;
   channelsRef?: firebase.database.Reference;
+  firstLoad?: boolean;
 }
 
 export interface INewChannel {
