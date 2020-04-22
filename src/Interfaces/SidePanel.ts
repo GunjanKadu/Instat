@@ -1,8 +1,14 @@
 import { TUser } from './Auth';
 
-export interface IProps {
-  currentUser?: TUser;
+export interface IOwnProps {
+  currentUser: TUser;
+  setChannel?: (channel: IChannelArray) => void;
 }
+export interface IReduxProps {
+  setChannel: (channel: IChannelArray) => void;
+}
+
+export type IProps = IOwnProps | IReduxProps;
 
 export interface IChannel {
   user?: TUser;
