@@ -2,9 +2,11 @@ import { IChannelArray } from './SidePanel';
 import { IUser } from './Auth';
 
 export interface IStateMessage {
-  messagesRef: firebase.database.Reference;
-  channel: IChannelArray;
-  user: IUser;
+  messagesRef?: firebase.database.Reference;
+  channel?: IChannelArray;
+  user?: IUser;
+  messages?: IMessage[];
+  messagesLoading?: boolean;
 }
 
 export interface IPropsMessageForm {
@@ -26,11 +28,17 @@ export interface IMessagesProp {
 }
 
 export interface IMessage {
-  timestamp: {};
+  timestamp: any;
   content: string;
   user: {
     id: string;
     name: string;
     avatar: string;
   };
+}
+
+export interface IPropsForMessage {
+  key: any;
+  message: IMessage;
+  user: IUser;
 }
