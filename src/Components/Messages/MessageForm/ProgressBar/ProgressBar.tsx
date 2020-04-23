@@ -6,7 +6,7 @@ const ProgressBar = ({
   uploadState,
   percentUploaded,
 }: I.IPropsProgressBar): JSX.Element =>
-  uploadState && (
+  uploadState === 'uploading' && (
     <Progress
       className='progress_bar'
       percent={percentUploaded}
