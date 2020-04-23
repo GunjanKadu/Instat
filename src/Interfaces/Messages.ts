@@ -20,6 +20,7 @@ export interface IStateMessageForm {
   channel?: IChannelArray;
   user?: IUser;
   errors?: Array<any>;
+  modal?: boolean;
 }
 
 export interface IMessagesProp {
@@ -41,4 +42,8 @@ export interface IPropsForMessage {
   key: any;
   message: IMessage;
   user: IUser;
+}
+export interface IFileModalProps {
+  modal: boolean;
+  closeModal: () => void;
 }
