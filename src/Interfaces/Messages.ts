@@ -21,6 +21,10 @@ export interface IStateMessageForm {
   user?: IUser;
   errors?: Array<any>;
   modal?: boolean;
+  uploadState?: string;
+  uploadTask?: any;
+  storageRef?: firebase.storage.Reference;
+  percentUploaded?: number;
 }
 
 export interface IMessagesProp {
@@ -30,12 +34,13 @@ export interface IMessagesProp {
 
 export interface IMessage {
   timestamp: any;
-  content: string;
+  content?: string;
   user: {
     id: string;
     name: string;
     avatar: string;
   };
+  image?: string;
 }
 
 export interface IPropsForMessage {
