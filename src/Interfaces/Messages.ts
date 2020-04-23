@@ -70,3 +70,8 @@ export interface IFileModalFile {
 export interface IFileModalMetaData {
   contentType: string;
 }
+
+export interface IPropsProgressBar {
+  uploadState: string;
+  percentUploaded: number;
+}
