@@ -25,6 +25,9 @@ export default class MessageForm extends Component<
   handleChange = (event: { target: { name: any; value: any } }): void => {
     this.setState({ [event.target.name]: event.target.value });
   };
+  uploadFIle = (file: I.IFileModalFile, metaData: I.IFileModalMetaData) => {
+    console.log(file, metaData);
+  };
   sendMessage = () => {
     const { messagesRef } = this.props;
     const { message, channel } = this.state;
@@ -98,7 +101,11 @@ export default class MessageForm extends Component<
             labelPosition='right'
             icon='cloud upload'
           />
-          <FileModal modal={modal} closeModal={this.closeModal} />
+          <FileModal
+            modal={modal}
+            closeModal={this.closeModal}
+            uploadFile={this.uploadFIle}
+          />
         </Button.Group>
       </Segment>
     );
