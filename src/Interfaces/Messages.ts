@@ -24,3 +24,13 @@ export interface IMessagesProp {
   currentChannel?: IChannelArray;
   currentUser?: IUser;
 }
+
+export interface IMessage {
+  timestamp: {};
+  content: string;
+  user: {
+    id: string;
+    name: string;
+    avatar: string;
+  };
+}
