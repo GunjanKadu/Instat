@@ -46,4 +46,22 @@ export interface IPropsForMessage {
 export interface IFileModalProps {
   modal: boolean;
   closeModal: () => void;
+  uploadFile: (file: IFileModalFile, metaData: any) => void;
+}
+
+export interface IFileModalState {
+  file?: IFileModalFile;
+  authorized?: String[];
+}
+
+export interface IFileModalFile {
+  name?: string;
+  lastModified?: number;
+  lastModifiedDate?: any;
+  webkitRelativePath?: string;
+  size?: number;
+  type?: number;
+}
+export interface IFileModalMetaData {
+  contentType: string;
 }
