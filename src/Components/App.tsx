@@ -7,20 +7,24 @@ import SidePanel from './SidePanel/SidePanel';
 import Messages from './Messages/Messages';
 import MetaPanel from './MetaPanel/MetaPanel';
 import { IRootState } from '../Store/Reducers/Index';
-import { TUser } from '../Interfaces/Auth';
+import * as I from '../Interfaces/App';
 
-interface IProps {
-  currentUser?: TUser;
-}
-const App = (props: IProps): JSX.Element => {
+const App = (props: I.IProps): JSX.Element => {
   return (
     <Grid columns='equal' className='app' style={{ background: '#eee' }}>
       <ColorPanel />
 
-      <SidePanel currentUser={props.currentUser} />
+      <SidePanel
+        key={props.currentUser && props.currentUser.uid}
+        currentUser={props.currentUser}
+      />
 
       <Grid.Column style={{ marginLeft: 320 }}>
-        <Messages />
+        <Messages
+          key={props.currentChannel && props.currentChannel.id}
+          currentChannel={props.currentChannel}
+          currentUser={props.currentUser}
+        />
       </Grid.Column>
       <Grid.Column width={4}>
         <MetaPanel />
@@ -28,9 +32,10 @@ const App = (props: IProps): JSX.Element => {
     </Grid>
   );
 };
-const mapStateToProps = (state: IRootState): IProps => {
+const mapStateToProps = (state: IRootState): I.IProps => {
   return {
     currentUser: state.user.currentUser,
+    currentChannel: state.channel.currentChannel,
   };
 };
 export default connect(mapStateToProps)(App);
