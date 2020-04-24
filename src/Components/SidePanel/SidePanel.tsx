@@ -18,7 +18,7 @@ class SidePanel extends Component<I.IOwnProps> {
       >
         <UserPanel currentUser={currentUser} />
         <Channels currentUser={currentUser} />
-        <DirectMessages />
+        <DirectMessages currentUser={currentUser} />
       </Menu>
     );
   }

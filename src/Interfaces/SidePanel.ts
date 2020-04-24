@@ -1,4 +1,4 @@
-import { TUser } from './Auth';
+import { TUser, IUser } from './Auth';
 
 export interface IOwnProps {
   currentUser: TUser;
@@ -41,5 +41,12 @@ export interface IChannelArray {
   };
 }
 export interface IDirectMessagesState {
-  users: Array<string>;
+  users: Array<IUser>;
+  user: IUser;
+  usersRef: firebase.database.Reference;
+  connectedRef: firebase.database.Reference;
+  presenceRef: firebase.database.Reference;
+}
+export interface IDirectMessagesProps {
+  currentUser: IUser;
 }

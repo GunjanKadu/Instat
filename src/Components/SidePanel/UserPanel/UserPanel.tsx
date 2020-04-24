@@ -40,7 +40,6 @@ class UserPanel extends Component<IStateProps, IState> {
   };
   render() {
     const { user } = this.state;
-    console.log(this.props.currentUser);
     return (
       <Grid style={{ background: '#3a133e' }}>
         <Grid.Column>
