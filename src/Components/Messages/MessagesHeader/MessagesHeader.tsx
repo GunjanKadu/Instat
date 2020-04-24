@@ -5,7 +5,7 @@ import * as I from '../../../Interfaces/Messages';
 //prettier-ignore
 export default class MessagesHeader extends Component<I.IMessageHeaderProp,{}> {
   render() {
-    const { channelName, numUniqueUsers, handleSearchChange } = this.props;
+    const { channelName, numUniqueUsers, handleSearchChange,searchLoading } = this.props;
     return (
       <Segment clearing>
         {/* Channel Title */}
@@ -20,6 +20,7 @@ export default class MessagesHeader extends Component<I.IMessageHeaderProp,{}> {
         {/* Channel Search Input */}
         <Header floated='right'>
           <Input
+            loading={searchLoading}
             onChange={handleSearchChange}
             size='mini'
             icon='search'

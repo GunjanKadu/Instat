@@ -75,7 +75,10 @@ class Messages extends Component<I.IMessagesProp, I.IStateMessage> {
     const regex = new RegExp(this.state.searchTerm, 'gi');
     const searchResults = channelMessages.reduce(
       (acc: any, message: I.IMessage): Array<any> => {
-        if (message.content && message.content.match(regex)) {
+        if (
+          (message.content && message.content.match(regex)) ||
+          message.user.name.match(regex)
+        ) {
           acc.push(message);
         }
         return acc;
@@ -83,6 +86,9 @@ class Messages extends Component<I.IMessagesProp, I.IStateMessage> {
       []
     );
     this.setState({ searchResult: searchResults });
+    setTimeout(() => {
+      this.setState({ searchLoading: false });
+    }, 1000);
   };
   render() {
     const {
@@ -93,6 +99,7 @@ class Messages extends Component<I.IMessagesProp, I.IStateMessage> {
       numUniqueUsers,
       searchTerm,
       searchResult,
+      searchLoading,
     } = this.state;
     return (
       <React.Fragment>
@@ -100,6 +107,7 @@ class Messages extends Component<I.IMessagesProp, I.IStateMessage> {
           channelName={() => this.displayChannelName(channel)}
           numUniqueUsers={numUniqueUsers}
           handleSearchChange={this.handleSearchChange}
+          searchLoading={searchLoading}
         />
         <Segment>
           <Comment.Group className='messages'>

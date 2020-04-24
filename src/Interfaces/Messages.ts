@@ -84,4 +84,5 @@ export interface IMessageHeaderProp {
   channelName?: (channel: IChannelArray) => void;
   handleSearchChange?: any;
   numUniqueUsers?: string;
+  searchLoading: boolean;
 }
