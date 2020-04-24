@@ -13,13 +13,13 @@ import firebase from '../../firebase';
 import * as I from '../../Interfaces/Auth';
 import md5 from 'md5';
 
-class Register extends Component<{}, Partial<I.IRegister>> {
-  state = {
+class Register extends Component<{}, I.IRegister> {
+  state: I.IRegister = {
     userName: '',
     email: '',
     password: '',
     passwordConfirmation: '',
-    errors: new Array(),
+    errors: [],
     loading: false,
     userRef: firebase.database().ref('users'),
   };

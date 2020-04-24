@@ -16,7 +16,7 @@ export default class MessageForm extends Component<
     loading: false,
     channel: this.props.currentChannel,
     user: this.props.currentUser,
-    errors: new Array(),
+    errors: [],
     modal: false,
     uploadState: '',
     uploadTask: null,

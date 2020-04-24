@@ -12,12 +12,12 @@ import { Link } from 'react-router-dom';
 import firebase from '../../firebase';
 import * as I from '../../Interfaces/Auth';
 
-class Login extends Component<{}, Partial<I.ILogin>> {
-  state = {
+class Login extends Component<{}, I.ILogin> {
+  state: I.ILogin = {
     userName: '',
     email: '',
     password: '',
-    errors: new Array(),
+    errors: [],
     loading: false,
   };
 

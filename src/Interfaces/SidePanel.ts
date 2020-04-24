@@ -40,3 +40,6 @@ export interface IChannelArray {
     name: string;
   };
 }
+export interface IDirectMessagesState {
+  users: Array<string>;
+}

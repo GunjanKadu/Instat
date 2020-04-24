@@ -6,10 +6,10 @@ import { connect } from 'react-redux';
 import { setChannel } from '../../../Store/Actions/index';
 
 class Channels extends Component<I.IOwnProps, I.IChannel> {
-  state = {
+  state: I.IChannel = {
     user: this.props.currentUser,
     activeChannel: '',
-    channels: new Array(),
+    channels: [],
     channelName: '',
     channelDetails: '',
     modal: false,

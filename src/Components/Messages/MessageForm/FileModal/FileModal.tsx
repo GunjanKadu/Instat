@@ -1,4 +1,4 @@
-import React, { Component, SyntheticEvent, BaseSyntheticEvent } from 'react';
+import React, { Component } from 'react';
 import { Modal, Input, Button, Icon } from 'semantic-ui-react';
 import mime from 'mime-types';
 import * as I from '../../../../Interfaces/Messages';

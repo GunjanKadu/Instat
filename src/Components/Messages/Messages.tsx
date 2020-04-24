@@ -12,12 +12,12 @@ class Messages extends Component<I.IMessagesProp, I.IStateMessage> {
     messagesRef: firebase.database().ref('messages'),
     channel: this.props.currentChannel,
     user: this.props.currentUser,
-    messages: new Array(),
+    messages: [],
     messagesLoading: true,
     numUniqueUsers: '',
     searchTerm: '',
     searchLoading: false,
-    searchResult: new Array(),
+    searchResult: [],
   };
 
   componentDidMount() {
