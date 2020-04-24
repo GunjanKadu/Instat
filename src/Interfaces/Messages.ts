@@ -7,6 +7,7 @@ export interface IStateMessage {
   user?: IUser;
   messages?: IMessage[];
   messagesLoading?: boolean;
+  numUniqueUsers?: string;
 }
 
 export interface IPropsMessageForm {
@@ -74,4 +75,9 @@ export interface IFileModalMetaData {
 export interface IPropsProgressBar {
   uploadState: string;
   percentUploaded: number;
+}
+
+export interface IMessageHeaderProp {
+  channelName: (channel: IChannelArray) => void;
+  numUniqueUsers: string;
 }
