@@ -8,3 +8,4 @@
     5.Upload Images In real time and see the preview
     6.Download Images
     7.search for a particualar message
+    8.See if users is online or offline

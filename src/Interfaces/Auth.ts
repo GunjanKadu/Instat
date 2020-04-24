@@ -17,22 +17,24 @@ export interface ILogin {
   loading?: boolean;
 }
 export interface IUser {
-  uid: string;
-  displayName: string;
-  photoURL: string;
-  email: string;
-  emailVerified: boolean;
-  phoneNumber: any;
-  isAnonymous: boolean;
-  tenantId: any;
-  providerData: any;
-  apiKey: string;
-  appName: string;
-  authDomain: string;
-  stsTokenManager: any;
-  redirectEventId: any;
-  lastLoginAt: string;
-  createdAt: string;
-  multiFactor: any;
+  uid?: string;
+  displayName?: string;
+  photoURL?: string;
+  email?: string;
+  emailVerified?: boolean;
+  phoneNumber?: any;
+  isAnonymous?: boolean;
+  tenantId?: any;
+  providerData?: any;
+  apiKey?: string;
+  appName?: string;
+  authDomain?: string;
+  stsTokenManager?: any;
+  redirectEventId?: any;
+  lastLoginAt?: string;
+  createdAt?: string;
+  multiFactor?: any;
+  status?: string;
+  name?: string;
 }
 export type TUser = IUser | null | undefined;
