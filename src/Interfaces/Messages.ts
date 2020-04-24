@@ -81,7 +81,7 @@ export interface IPropsProgressBar {
 }
 
 export interface IMessageHeaderProp {
-  channelName?: (channel: IChannelArray) => void;
+  channelName?: any;
   handleSearchChange?: any;
   numUniqueUsers?: string;
   searchLoading: boolean;

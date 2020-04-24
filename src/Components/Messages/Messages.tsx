@@ -40,14 +40,15 @@ class Messages extends Component<I.IMessagesProp, I.IStateMessage> {
     });
   };
   countUniqueUsers = (messages: I.IMessage[]) => {
-    const uniqueUsers = messages.reduce((acc: any, message: any): any => {
-      console.log(acc);
-      console.log(message);
-      if (!acc.includes(message.user.name)) {
-        acc.push(message.user.name);
-      }
-      return acc;
-    }, []);
+    const uniqueUsers = messages.reduce(
+      (acc: Array<string>, message: I.IMessage): any => {
+        if (!acc.includes(message.user.name)) {
+          acc.push(message.user.name);
+        }
+        return acc;
+      },
+      []
+    );
     const plural = uniqueUsers.length > 1 || uniqueUsers.length === 0;
     const numUniqueUsers = `${uniqueUsers.length} user${plural ? 's' : ''}`;
     this.setState({ numUniqueUsers: numUniqueUsers });
@@ -74,7 +75,7 @@ class Messages extends Component<I.IMessagesProp, I.IStateMessage> {
     const channelMessages = [...this.state.messages];
     const regex = new RegExp(this.state.searchTerm, 'gi');
     const searchResults = channelMessages.reduce(
-      (acc: any, message: I.IMessage): Array<any> => {
+      (acc: I.IMessage[], message: I.IMessage): Array<I.IMessage> => {
         if (
           (message.content && message.content.match(regex)) ||
           message.user.name.match(regex)
@@ -104,7 +105,7 @@ class Messages extends Component<I.IMessagesProp, I.IStateMessage> {
     return (
       <React.Fragment>
         <MessagesHeader
-          channelName={() => this.displayChannelName(channel)}
+          channelName={this.displayChannelName(channel)}
           numUniqueUsers={numUniqueUsers}
           handleSearchChange={this.handleSearchChange}
           searchLoading={searchLoading}
