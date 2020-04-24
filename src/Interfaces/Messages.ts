@@ -8,6 +8,9 @@ export interface IStateMessage {
   messages?: IMessage[];
   messagesLoading?: boolean;
   numUniqueUsers?: string;
+  searchTerm?: string;
+  searchLoading?: boolean;
+  searchResult?: IMessage[];
 }
 
 export interface IPropsMessageForm {
@@ -78,6 +81,7 @@ export interface IPropsProgressBar {
 }
 
 export interface IMessageHeaderProp {
-  channelName: (channel: IChannelArray) => void;
-  numUniqueUsers: string;
+  channelName?: (channel: IChannelArray) => void;
+  handleSearchChange?: any;
+  numUniqueUsers?: string;
 }

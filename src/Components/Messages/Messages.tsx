@@ -8,13 +8,16 @@ import * as I from '../../Interfaces/Messages';
 import { IChannelArray } from '../../Interfaces/SidePanel';
 
 class Messages extends Component<I.IMessagesProp, I.IStateMessage> {
-  state = {
+  state: I.IStateMessage = {
     messagesRef: firebase.database().ref('messages'),
     channel: this.props.currentChannel,
     user: this.props.currentUser,
     messages: new Array(),
     messagesLoading: true,
     numUniqueUsers: '',
+    searchTerm: '',
+    searchLoading: false,
+    searchResult: new Array(),
   };
 
   componentDidMount() {
@@ -62,17 +65,47 @@ class Messages extends Component<I.IMessagesProp, I.IStateMessage> {
     return channel ? `#${channel.name}` : '';
   };
 
+  handleSearchChange = (event: { target: { value: any } }): void => {
+    this.setState({ searchTerm: event.target.value, searchLoading: true }, () =>
+      this.handleSearchMessages()
+    );
+  };
+  handleSearchMessages = () => {
+    const channelMessages = [...this.state.messages];
+    const regex = new RegExp(this.state.searchTerm, 'gi');
+    const searchResults = channelMessages.reduce(
+      (acc: any, message: I.IMessage): Array<any> => {
+        if (message.content && message.content.match(regex)) {
+          acc.push(message);
+        }
+        return acc;
+      },
+      []
+    );
+    this.setState({ searchResult: searchResults });
+  };
   render() {
-    const { messagesRef, messages, channel, user, numUniqueUsers } = this.state;
+    const {
+      messagesRef,
+      messages,
+      channel,
+      user,
+      numUniqueUsers,
+      searchTerm,
+      searchResult,
+    } = this.state;
     return (
       <React.Fragment>
         <MessagesHeader
           channelName={() => this.displayChannelName(channel)}
           numUniqueUsers={numUniqueUsers}
+          handleSearchChange={this.handleSearchChange}
         />
         <Segment>
           <Comment.Group className='messages'>
-            {this.displayMessages(messages)}
+            {searchTerm
+              ? this.displayMessages(searchResult)
+              : this.displayMessages(messages)}
           </Comment.Group>
         </Segment>
         <MessagesForm
