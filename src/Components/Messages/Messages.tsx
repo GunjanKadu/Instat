@@ -5,6 +5,7 @@ import MessagesForm from './MessageForm/MessageForm';
 import firebase from '../../firebase';
 import Message from './Message/Message';
 import * as I from '../../Interfaces/Messages';
+import { IChannelArray } from '../../Interfaces/SidePanel';
 
 class Messages extends Component<I.IMessagesProp, I.IStateMessage> {
   state = {
@@ -13,6 +14,7 @@ class Messages extends Component<I.IMessagesProp, I.IStateMessage> {
     user: this.props.currentUser,
     messages: new Array(),
     messagesLoading: true,
+    numUniqueUsers: '',
   };
 
   componentDidMount() {
@@ -30,7 +32,22 @@ class Messages extends Component<I.IMessagesProp, I.IStateMessage> {
     this.state.messagesRef.child(channelId).on('child_added', (snap) => {
       loadedMessages.push(snap.val());
       this.setState({ messages: loadedMessages, messagesLoading: false });
+
+      this.countUniqueUsers(loadedMessages);
     });
+  };
+  countUniqueUsers = (messages: I.IMessage[]) => {
+    const uniqueUsers = messages.reduce((acc: any, message: any): any => {
+      console.log(acc);
+      console.log(message);
+      if (!acc.includes(message.user.name)) {
+        acc.push(message.user.name);
+      }
+      return acc;
+    }, []);
+    const plural = uniqueUsers.length > 1 || uniqueUsers.length === 0;
+    const numUniqueUsers = `${uniqueUsers.length} user${plural ? 's' : ''}`;
+    this.setState({ numUniqueUsers: numUniqueUsers });
   };
   displayMessages = (messages: I.IMessage[]) =>
     messages.length > 0 &&
@@ -41,11 +58,18 @@ class Messages extends Component<I.IMessagesProp, I.IStateMessage> {
         user={this.state.user}
       />
     ));
+  displayChannelName = (channel: IChannelArray): string => {
+    return channel ? `#${channel.name}` : '';
+  };
+
   render() {
-    const { messagesRef, messages, channel, user } = this.state;
+    const { messagesRef, messages, channel, user, numUniqueUsers } = this.state;
     return (
       <React.Fragment>
-        <MessagesHeader />
+        <MessagesHeader
+          channelName={() => this.displayChannelName(channel)}
+          numUniqueUsers={numUniqueUsers}
+        />
         <Segment>
           <Comment.Group className='messages'>
             {this.displayMessages(messages)}
