@@ -109,7 +109,7 @@ class Login extends Component<{}, I.ILogin> {
             <Message error>{this.displayError(this.state.errors)}</Message>
           )}
           <Message>
-            Don't Have an Account? <Link to='/register'>Login</Link>
+            Don't Have an Account? <Link to='/register'>Register</Link>
           </Message>
         </Grid.Column>
       </Grid>

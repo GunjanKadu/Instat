@@ -56,7 +56,6 @@ class Register extends Component<{}, I.IRegister> {
     } else {
       return false;
     }
-    //return !userName || !email || !password || !passwordConfirmation;
   }
 
   isPasswordValid({ password, passwordConfirmation }: I.IRegister): boolean {
@@ -81,6 +80,7 @@ class Register extends Component<{}, I.IRegister> {
         .auth()
         .createUserWithEmailAndPassword(this.state.email, this.state.password)
         .then((createdUser: any) => {
+          console.log(createdUser);
           createdUser.user
             ?.updateProfile({
               displayName: this.state.userName,
