@@ -1,3 +1,13 @@
+/**
+ *
+ * @Project :  ${Instat(Instant Chat)}
+ * @CreatedBy ${Gunjan Kadu}
+ * @Email  ${agunjan.kadu@gmail.com}
+ * @Github //github.com/GunjanKadu
+ * @date   2020-04-25 23:46:20
+ *
+ */
+
 import React, { Component } from 'react';
 import { Menu } from 'semantic-ui-react';
 import UserPanel from './UserPanel/UserPanel';

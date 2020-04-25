@@ -1,3 +1,13 @@
+/**
+ *
+ * @Project :  ${Instat(Instant Chat)}
+ * @CreatedBy ${Gunjan Kadu}
+ * @Email  ${agunjan.kadu@gmail.com}
+ * @Github //github.com/GunjanKadu
+ * @date   2020-04-25 23:46:58
+ *
+ */
+
 import { IChannelArray } from './SidePanel';
 import { IUser } from './Auth';
 

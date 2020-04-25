@@ -1,3 +1,13 @@
+/**
+ *
+ * @Project :  ${Instat(Instant Chat)}
+ * @CreatedBy ${Gunjan Kadu}
+ * @Email  ${agunjan.kadu@gmail.com}
+ * @Github //github.com/GunjanKadu
+ * @date   2020-04-25 23:46:15
+ *
+ */
+
 import React, { Component } from 'react';
 import { Grid, Header, Icon, Dropdown, Image } from 'semantic-ui-react';
 import firebase from '../../../firebase';

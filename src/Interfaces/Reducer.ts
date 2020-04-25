@@ -1,3 +1,13 @@
+/**
+ *
+ * @Project :  ${Instat(Instant Chat)}
+ * @CreatedBy ${Gunjan Kadu}
+ * @Email  ${agunjan.kadu@gmail.com}
+ * @Github //github.com/GunjanKadu
+ * @date   2020-04-25 23:47:02
+ *
+ */
+
 import * as I from './Auth';
 import * as IC from './SidePanel';
 

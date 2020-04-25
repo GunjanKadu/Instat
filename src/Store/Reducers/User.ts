@@ -1,3 +1,13 @@
+/**
+ *
+ * @Project :  ${Instat(Instant Chat)}
+ * @CreatedBy ${Gunjan Kadu}
+ * @Email  ${agunjan.kadu@gmail.com}
+ * @Github //github.com/GunjanKadu
+ * @date   2020-04-25 23:47:31
+ *
+ */
+
 import * as actionTypes from '../Actions/types';
 import * as I from '../../Interfaces/Reducer';
 import { IActionUser } from '../../Interfaces/Action';
