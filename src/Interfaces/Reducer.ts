@@ -7,4 +7,5 @@ export interface IUserState {
 }
 export interface IChannel {
   currentChannel: IC.IChannelArray | null;
+  isPrivateChannel: boolean;
 }

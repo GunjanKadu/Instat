@@ -23,3 +23,11 @@ export const setChannel = (channel: I.IChannelArray): IActions.ISetChannel => {
     payload: channel,
   };
 };
+export const setPrivateChannel = (
+  isPrivatechannel: boolean
+): IActions.ISetPrivateChannel => {
+  return {
+    type: actionTypes.SET_PRIVATE_CHANNEL,
+    payload: isPrivatechannel,
+  };
+};

@@ -15,5 +15,9 @@ export interface ISetChannel
   extends Action<typeof actionsTypes.SET_CURRENT_CHANNEL> {
   payload: I.IChannelArray;
 }
+export interface ISetPrivateChannel
+  extends Action<typeof actionsTypes.SET_PRIVATE_CHANNEL> {
+  payload: boolean;
+}
 
-export type IActionChannel = ISetChannel;
+export type IActionChannel = ISetChannel | ISetPrivateChannel;

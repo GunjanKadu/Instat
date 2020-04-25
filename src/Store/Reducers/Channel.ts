@@ -4,6 +4,7 @@ import { IActionChannel } from '../../Interfaces/Action';
 
 const initialState: I.IChannel = {
   currentChannel: null,
+  isPrivateChannel: false,
 };
 
 export const channelReducer = (
@@ -15,6 +16,11 @@ export const channelReducer = (
       return {
         ...state,
         currentChannel: action.payload,
+      };
+    case actionTypes.SET_PRIVATE_CHANNEL:
+      return {
+        ...state,
+        isPrivateChannel: action.payload,
       };
 
     default:
