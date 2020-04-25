@@ -32,12 +32,12 @@ export interface INewChannel {
 }
 
 export interface IChannelArray {
-  details: string;
-  id: string;
-  name: string;
-  createdBy: {
-    avatar: string;
-    name: string;
+  details?: string;
+  id?: string;
+  name?: string;
+  createdBy?: {
+    avatar?: string;
+    name?: string;
   };
 }
 export interface IDirectMessagesState {
@@ -47,6 +47,11 @@ export interface IDirectMessagesState {
   connectedRef: firebase.database.Reference;
   presenceRef: firebase.database.Reference;
 }
-export interface IDirectMessagesProps {
+export interface IDirectOwnProps {
   currentUser: IUser;
 }
+export interface IDirectMessagesPropsRedux {
+  setCurrentChannel: (channel: any) => void;
+  setPrivateChannel: (value: boolean) => void;
+}
+export type IDirectMessagesProps = IDirectMessagesPropsRedux & IDirectOwnProps;
