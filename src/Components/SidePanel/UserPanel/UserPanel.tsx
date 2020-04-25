@@ -3,7 +3,7 @@
  * @Project :  ${Instat(Instant Chat)}
  * @CreatedBy ${Gunjan Kadu}
  * @Email  ${agunjan.kadu@gmail.com}
- * @Github //github.com/GunjanKadu
+ * @Github https://github.com/GunjanKadu//
  * @date   2020-04-25 23:46:15
  *
  */
