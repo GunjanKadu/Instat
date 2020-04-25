@@ -3,8 +3,10 @@ import { Menu, Icon } from 'semantic-ui-react';
 import * as I from '../../../Interfaces/SidePanel';
 import firebase from '../../../firebase';
 import { IUser } from '../../../Interfaces/Auth';
+import { connect } from 'react-redux';
+import { setChannel, setPrivateChannel } from '../../../Store/Actions/index';
 
-export default class DirectMessages extends Component<
+class DirectMessages extends Component<
   I.IDirectMessagesProps,
   I.IDirectMessagesState
 > {
@@ -34,7 +36,6 @@ export default class DirectMessages extends Component<
     });
 
     this.state.connectedRef.on('value', (snap) => {
-      console.log(snap.val());
       if (snap.val() === true) {
         const ref = this.state.presenceRef.child(uid);
         ref.set(true);
@@ -67,6 +68,21 @@ export default class DirectMessages extends Component<
     );
     this.setState({ users: updatedUsers });
   };
+  changeChannel = (user: IUser) => {
+    const channelId = this.getChannelId(user.uid);
+    const channelData = {
+      id: channelId,
+      name: user.name,
+    };
+    this.props.setCurrentChannel(channelData);
+    this.props.setPrivateChannel(true);
+  };
+  getChannelId = (uid: string) => {
+    const currentUserId = this.state.user.uid;
+    return uid < currentUserId
+      ? `${uid}/${currentUserId}`
+      : `${currentUserId}/${uid}`;
+  };
   isUserOnline = (user: IUser) => user.status === 'online';
   render() {
     const { users } = this.state;
@@ -82,7 +98,7 @@ export default class DirectMessages extends Component<
         {users.map((user: IUser) => (
           <Menu.Item
             key={user.uid}
-            onClick={() => console.log(user)}
+            onClick={() => this.changeChannel(user)}
             style={{ opacity: 0.7, fontStyle: 'italic' }}
           >
             <Icon
@@ -96,3 +112,14 @@ export default class DirectMessages extends Component<
     );
   }
 }
+const mapDispatchToProps = (dispatch: any): I.IDirectMessagesPropsRedux => {
+  return {
+    setCurrentChannel: (channel: any) => {
+      dispatch(setChannel(channel));
+    },
+    setPrivateChannel: (value: boolean) => {
+      dispatch(setPrivateChannel(value));
+    },
+  };
+};
+export default connect(null, mapDispatchToProps)(DirectMessages);
