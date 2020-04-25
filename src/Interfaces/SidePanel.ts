@@ -6,9 +6,10 @@ export interface IOwnProps {
 }
 export interface IReduxProps {
   setChannel: (channel: IChannelArray) => void;
+  setPrivateChannel: (value: boolean) => void;
 }
 
-export type IProps = IOwnProps | IReduxProps;
+export type IProps = IOwnProps & IReduxProps;
 
 export interface IChannel {
   activeChannel?: string;

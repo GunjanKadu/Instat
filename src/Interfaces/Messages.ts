@@ -2,6 +2,7 @@ import { IChannelArray } from './SidePanel';
 import { IUser } from './Auth';
 
 export interface IStateMessage {
+  privateChannel?: boolean;
   messagesRef?: firebase.database.Reference;
   channel?: IChannelArray;
   user?: IUser;
@@ -11,12 +12,15 @@ export interface IStateMessage {
   searchTerm?: string;
   searchLoading?: boolean;
   searchResult?: IMessage[];
+  privateMessagesRef?: firebase.database.Reference;
 }
 
 export interface IPropsMessageForm {
   messagesRef: firebase.database.Reference;
   currentChannel: IChannelArray;
   currentUser: IUser;
+  privateChannel: boolean;
+  getMessagesRef: () => firebase.database.Reference;
 }
 export interface IStateMessageForm {
   message?: string;
@@ -34,6 +38,7 @@ export interface IStateMessageForm {
 export interface IMessagesProp {
   currentChannel?: IChannelArray;
   currentUser?: IUser;
+  isPrivateChannel?: boolean;
 }
 
 export interface IMessage {
@@ -85,4 +90,5 @@ export interface IMessageHeaderProp {
   handleSearchChange?: any;
   numUniqueUsers?: string;
   searchLoading: boolean;
+  privateChannel?: boolean;
 }

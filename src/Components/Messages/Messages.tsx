@@ -10,7 +10,9 @@ import { IChannelArray } from '../../Interfaces/SidePanel';
 class Messages extends Component<I.IMessagesProp, I.IStateMessage> {
   state: I.IStateMessage = {
     messagesRef: firebase.database().ref('messages'),
+    privateMessagesRef: firebase.database().ref('privateMessages'),
     channel: this.props.currentChannel,
+    privateChannel: this.props.isPrivateChannel,
     user: this.props.currentUser,
     messages: [],
     messagesLoading: true,
@@ -32,7 +34,8 @@ class Messages extends Component<I.IMessagesProp, I.IStateMessage> {
   };
   addMessageListeners = (channelId: string) => {
     let loadedMessages: I.IMessage[] = [];
-    this.state.messagesRef.child(channelId).on('child_added', (snap) => {
+    const ref = this.getMessagesRef();
+    ref.child(channelId).on('child_added', (snap) => {
       loadedMessages.push(snap.val());
       this.setState({ messages: loadedMessages, messagesLoading: false });
 
@@ -63,7 +66,9 @@ class Messages extends Component<I.IMessagesProp, I.IStateMessage> {
       />
     ));
   displayChannelName = (channel: IChannelArray): string => {
-    return channel ? `#${channel.name}` : '';
+    return channel
+      ? `${this.state.privateChannel ? '@' : '#'}${channel.name}`
+      : '';
   };
 
   handleSearchChange = (event: { target: { value: any } }): void => {
@@ -91,6 +96,12 @@ class Messages extends Component<I.IMessagesProp, I.IStateMessage> {
       this.setState({ searchLoading: false });
     }, 1000);
   };
+
+  getMessagesRef = (): firebase.database.Reference => {
+    const { messagesRef, privateMessagesRef, privateChannel } = this.state;
+    return privateChannel ? privateMessagesRef : messagesRef;
+  };
+
   render() {
     const {
       messagesRef,
@@ -101,6 +112,7 @@ class Messages extends Component<I.IMessagesProp, I.IStateMessage> {
       searchTerm,
       searchResult,
       searchLoading,
+      privateChannel,
     } = this.state;
     return (
       <React.Fragment>
@@ -109,6 +121,7 @@ class Messages extends Component<I.IMessagesProp, I.IStateMessage> {
           numUniqueUsers={numUniqueUsers}
           handleSearchChange={this.handleSearchChange}
           searchLoading={searchLoading}
+          privateChannel={privateChannel}
         />
         <Segment>
           <Comment.Group className='messages'>
@@ -121,6 +134,8 @@ class Messages extends Component<I.IMessagesProp, I.IStateMessage> {
           messagesRef={messagesRef}
           currentChannel={channel}
           currentUser={user}
+          privateChannel={privateChannel}
+          getMessagesRef={this.getMessagesRef}
         />
       </React.Fragment>
     );

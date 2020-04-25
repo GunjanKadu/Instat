@@ -3,9 +3,9 @@ import firebase from '../../../firebase';
 import { Menu, Icon, Modal, Form, Input, Button } from 'semantic-ui-react';
 import * as I from '../../../Interfaces/SidePanel';
 import { connect } from 'react-redux';
-import { setChannel } from '../../../Store/Actions/index';
+import { setChannel, setPrivateChannel } from '../../../Store/Actions/index';
 
-class Channels extends Component<I.IOwnProps, I.IChannel> {
+class Channels extends Component<I.IProps, I.IChannel> {
   state: I.IChannel = {
     user: this.props.currentUser,
     activeChannel: '',
@@ -103,6 +103,7 @@ class Channels extends Component<I.IOwnProps, I.IChannel> {
   changeChannel = (channel: I.IChannelArray): void => {
     this.setActiveChannel(channel);
     this.props.setChannel(channel);
+    this.props.setPrivateChannel(false);
   };
 
   setActiveChannel = (channel: I.IChannelArray) => {
@@ -165,6 +166,9 @@ const mapDispatchToProps = (dispatch: any): I.IReduxProps => {
   return {
     setChannel: (channel: I.IChannelArray) => {
       dispatch(setChannel(channel));
+    },
+    setPrivateChannel: (value: boolean) => {
+      dispatch(setPrivateChannel(value));
     },
   };
 };
