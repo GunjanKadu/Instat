@@ -22,6 +22,7 @@ export interface IReduxProps {
 export type IProps = IOwnProps & IReduxProps;
 
 export interface IChannel {
+  activeChannels?: string;
   activeChannel?: string;
   user?: TUser;
   channels?: IChannelArray[];
@@ -29,7 +30,10 @@ export interface IChannel {
   channelName?: string;
   channelDetails?: string;
   channelsRef?: firebase.database.Reference;
+  messageRef?: firebase.database.Reference;
   firstLoad?: boolean;
+  notifications?: INotifications[];
+  channel?: IChannelArray;
 }
 
 export interface INewChannel {
@@ -60,6 +64,12 @@ export interface IDirectMessagesState {
 }
 export interface IDirectOwnProps {
   currentUser: IUser;
+}
+export interface INotifications {
+  id: string;
+  total: number;
+  lastKnownTotal: number;
+  count: number;
 }
 export interface IDirectMessagesPropsRedux {
   setCurrentChannel: (channel: any) => void;
