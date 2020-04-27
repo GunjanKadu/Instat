@@ -75,4 +75,14 @@ export interface IDirectMessagesPropsRedux {
   setCurrentChannel: (channel: any) => void;
   setPrivateChannel: (value: boolean) => void;
 }
+
+export interface IStarredState {
+  starredChannels?: Array<any>;
+  activeChannel?: string;
+}
+export interface IStarredReduxProps {
+  setChannel?: (channel: IChannelArray) => void;
+  setPrivateChannel?: (value: boolean) => void;
+}
+export type IStarredProps = IStarredReduxProps;
 export type IDirectMessagesProps = IDirectMessagesPropsRedux & IDirectOwnProps;
