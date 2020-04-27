@@ -14,6 +14,7 @@ import UserPanel from './UserPanel/UserPanel';
 import Channels from './Channels/Channels';
 import * as I from '../../Interfaces/SidePanel';
 import DirectMessages from './DirectMessages/DirectMessages';
+import Starred from './Starred/Starred';
 
 class SidePanel extends Component<I.IOwnProps> {
   render() {
@@ -27,6 +28,7 @@ class SidePanel extends Component<I.IOwnProps> {
         style={{ background: '#3a133e', fontSize: '1.2rem' }}
       >
         <UserPanel currentUser={currentUser} />
+        <Starred />
         <Channels currentUser={currentUser} />
         <DirectMessages currentUser={currentUser} />
       </Menu>
