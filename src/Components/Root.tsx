@@ -22,6 +22,7 @@ import Register from './Auth/Register';
 import { connect } from 'react-redux';
 import { IUser } from '../Interfaces/Auth';
 import { IRootState } from '../Store/Reducers/Index';
+import * as I from '../index';
 import Spinner from '../spinner';
 
 import { setUser, clearUser } from '../Store/Actions/index';
@@ -62,7 +63,7 @@ class Root extends React.Component<IProp, {}> {
     );
   }
 }
-const mapDispatchToProps = (dispatch: any): IDispatch => {
+const mapDispatchToProps = (dispatch: I.IDispatch): IDispatch => {
   return {
     setUser: (user: IUser) => {
       dispatch(setUser(user));

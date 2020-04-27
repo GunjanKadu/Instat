@@ -22,6 +22,7 @@ import { rootReducer } from './Store/Reducers/Index';
 import Root from './Components/Root';
 
 const store = createStore(rootReducer, composeWithDevTools());
+export type IDispatch = typeof store.dispatch;
 
 ReactDOM.render(
   <Provider store={store}>

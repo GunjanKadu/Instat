@@ -22,7 +22,7 @@ import {
 import * as I from '../../../Interfaces/SidePanel';
 import { connect } from 'react-redux';
 import { setChannel, setPrivateChannel } from '../../../Store/Actions/index';
-
+import { IDispatch } from '../../../index';
 class Channels extends Component<I.IProps, I.IChannel> {
   state: I.IChannel = {
     activeChannels: '',
@@ -260,7 +260,7 @@ class Channels extends Component<I.IProps, I.IChannel> {
     );
   }
 }
-const mapDispatchToProps = (dispatch: any): I.IReduxProps => {
+const mapDispatchToProps = (dispatch: IDispatch): I.IReduxProps => {
   return {
     setChannel: (channel: I.IChannelArray) => {
       dispatch(setChannel(channel));

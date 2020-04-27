@@ -15,6 +15,7 @@ import firebase from '../../../firebase';
 import { IUser } from '../../../Interfaces/Auth';
 import { connect } from 'react-redux';
 import { setChannel, setPrivateChannel } from '../../../Store/Actions/index';
+import { IDispatch } from '../../../index';
 
 class DirectMessages extends Component<
   I.IDirectMessagesProps,
@@ -122,7 +123,9 @@ class DirectMessages extends Component<
     );
   }
 }
-const mapDispatchToProps = (dispatch: any): I.IDirectMessagesPropsRedux => {
+const mapDispatchToProps = (
+  dispatch: IDispatch
+): I.IDirectMessagesPropsRedux => {
   return {
     setCurrentChannel: (channel: any) => {
       dispatch(setChannel(channel));
