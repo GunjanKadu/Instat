@@ -30,6 +30,7 @@ class Messages extends Component<I.IMessagesProp, I.IStateMessage> {
     searchTerm: '',
     searchLoading: false,
     searchResult: [],
+    isChannelStarred: false,
   };
 
   componentDidMount() {
@@ -111,7 +112,21 @@ class Messages extends Component<I.IMessagesProp, I.IStateMessage> {
     const { messagesRef, privateMessagesRef, privateChannel } = this.state;
     return privateChannel ? privateMessagesRef : messagesRef;
   };
-
+  handleStar = () => {
+    this.setState(
+      (prevState) => ({
+        isChannelStarred: !prevState.isChannelStarred,
+      }),
+      () => this.starChannel()
+    );
+  };
+  starChannel = () => {
+    if (this.state.isChannelStarred) {
+      console.log('star');
+    } else {
+      console.log('unstar');
+    }
+  };
   render() {
     const {
       messagesRef,
@@ -123,6 +138,7 @@ class Messages extends Component<I.IMessagesProp, I.IStateMessage> {
       searchResult,
       searchLoading,
       privateChannel,
+      isChannelStarred,
     } = this.state;
     return (
       <React.Fragment>
@@ -132,6 +148,8 @@ class Messages extends Component<I.IMessagesProp, I.IStateMessage> {
           handleSearchChange={this.handleSearchChange}
           searchLoading={searchLoading}
           privateChannel={privateChannel}
+          handleStar={this.handleStar}
+          isChannelStar={isChannelStarred}
         />
         <Segment>
           <Comment.Group className='messages'>

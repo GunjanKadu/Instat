@@ -15,14 +15,18 @@ import * as I from '../../../Interfaces/Messages';
 //prettier-ignore
 export default class MessagesHeader extends Component<I.IMessageHeaderProp,{}> {
   render() {
-    const { channelName, numUniqueUsers, handleSearchChange,searchLoading,privateChannel } = this.props;
+    const { channelName, numUniqueUsers, handleSearchChange,searchLoading,privateChannel,handleStar,isChannelStar} = this.props;
     return (
       <Segment clearing>
         {/* Channel Title */}
         <Header fluid='true' as='h2' floated='left' style={{ marginBottom: 0 }}>
           <span>
           {channelName}
-           {!privateChannel&& <Icon name={'star outline'} color='black' />}
+           {!privateChannel&& (
+           
+           <Icon  onClick={handleStar} name={isChannelStar?"star":"star outline"} color={isChannelStar?"yellow":"black"} />
+           
+           )}
           </span>
           <Header.Subheader>{numUniqueUsers}</Header.Subheader>
         </Header>

@@ -9,3 +9,4 @@
     6.Download Images
     7.search for a particualar message
     8.See if users is online or offline
+    9.Star a channel or private chat

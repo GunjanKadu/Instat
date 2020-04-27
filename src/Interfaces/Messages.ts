@@ -23,6 +23,7 @@ export interface IStateMessage {
   searchLoading?: boolean;
   searchResult?: IMessage[];
   privateMessagesRef?: firebase.database.Reference;
+  isChannelStarred?: boolean;
 }
 
 export interface IPropsMessageForm {
@@ -101,4 +102,6 @@ export interface IMessageHeaderProp {
   numUniqueUsers?: string;
   searchLoading: boolean;
   privateChannel?: boolean;
+  handleStar?: () => void;
+  isChannelStar?: boolean;
 }
