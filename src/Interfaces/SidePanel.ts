@@ -79,10 +79,15 @@ export interface IDirectMessagesPropsRedux {
 export interface IStarredState {
   starredChannels?: Array<any>;
   activeChannel?: string;
+  user?: IUser;
+  usersRef?: firebase.database.Reference;
 }
 export interface IStarredReduxProps {
   setChannel?: (channel: IChannelArray) => void;
   setPrivateChannel?: (value: boolean) => void;
 }
-export type IStarredProps = IStarredReduxProps;
+export interface IStarredOwnProps {
+  currentUser: IUser;
+}
+export type IStarredProps = IStarredReduxProps & IStarredOwnProps;
 export type IDirectMessagesProps = IDirectMessagesPropsRedux & IDirectOwnProps;

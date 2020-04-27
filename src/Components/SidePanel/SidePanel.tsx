@@ -28,7 +28,7 @@ class SidePanel extends Component<I.IOwnProps> {
         style={{ background: '#3a133e', fontSize: '1.2rem' }}
       >
         <UserPanel currentUser={currentUser} />
-        <Starred />
+        <Starred currentUser={currentUser} />
         <Channels currentUser={currentUser} />
         <DirectMessages currentUser={currentUser} />
       </Menu>

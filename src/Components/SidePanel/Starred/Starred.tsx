@@ -13,17 +13,53 @@ import { connect } from 'react-redux';
 import { setChannel, setPrivateChannel } from '../../../Store/Actions/index';
 import * as I from '../../../Interfaces/SidePanel';
 import { IDispatch } from '../../../index';
+import firebase from '../../../firebase';
 
 class Starred extends Component<I.IStarredProps, I.IStarredState> {
   state: I.IStarredState = {
     starredChannels: [],
     activeChannel: '',
+    user: this.props.currentUser,
+    usersRef: firebase.database().ref('users'),
+  };
+  componentDidMount() {
+    if (this.state.user.uid) {
+      this.addListeners(this.state.user.uid);
+    }
+  }
+
+  addListeners = (userId: string) => {
+    this.state.usersRef
+      .child(userId)
+      .child('starred')
+      .on('child_added', (snap) => {
+        const staredChannel = {
+          id: snap.key,
+          ...snap.val(),
+        };
+        this.setState({
+          starredChannels: [...this.state.starredChannels, staredChannel],
+        });
+      });
+    this.state.usersRef
+      .child(userId)
+      .child('starred')
+      .on('child_removed', (snap) => {
+        const channelToRemove = { id: snap.key, ...snap.val() };
+        const filteredChannels = this.state.starredChannels.filter(
+          (channel: I.IChannelArray) => {
+            return channel.id !== channelToRemove.id;
+          }
+        );
+        this.setState({ starredChannels: filteredChannels });
+      });
   };
   changeChannel = (channel: I.IChannelArray): void => {
     this.setActiveChannel(channel);
     this.props.setChannel(channel);
     this.props.setPrivateChannel(false);
   };
+
   displayChannels = (starredChannels: any) =>
     starredChannels.length > 0 &&
     starredChannels.map((channel: any) => (
