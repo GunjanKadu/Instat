@@ -23,9 +23,7 @@ export default class MessagesHeader extends Component<I.IMessageHeaderProp,{}> {
           <span>
           {channelName}
            {!privateChannel&& (
-           
            <Icon  onClick={handleStar} name={isChannelStar?"star":"star outline"} color={isChannelStar?"yellow":"black"} />
-           
            )}
           </span>
           <Header.Subheader>{numUniqueUsers}</Header.Subheader>

@@ -24,6 +24,7 @@ class Messages extends Component<I.IMessagesProp, I.IStateMessage> {
     channel: this.props.currentChannel,
     privateChannel: this.props.isPrivateChannel,
     user: this.props.currentUser,
+    usersRef: firebase.database().ref('users'),
     messages: [],
     messagesLoading: true,
     numUniqueUsers: '',
@@ -37,6 +38,7 @@ class Messages extends Component<I.IMessagesProp, I.IStateMessage> {
     const { channel, user } = this.state;
     if (channel && user) {
       this.addListeners(channel.id);
+      this.addUserStarsListeners(channel.id, user.uid);
     }
   }
 
@@ -52,6 +54,19 @@ class Messages extends Component<I.IMessagesProp, I.IStateMessage> {
 
       this.countUniqueUsers(loadedMessages);
     });
+  };
+  addUserStarsListeners = (channelId: string, userId: string) => {
+    this.state.usersRef
+      .child(userId)
+      .child('starred')
+      .once('value')
+      .then((data: any) => {
+        if (data.val() !== null) {
+          const channelIds = Object.keys(data.val());
+          const prevStarred = channelIds.includes(channelId);
+          this.setState({ isChannelStarred: prevStarred });
+        }
+      });
   };
   countUniqueUsers = (messages: I.IMessage[]) => {
     const uniqueUsers = messages.reduce(
@@ -112,19 +127,35 @@ class Messages extends Component<I.IMessagesProp, I.IStateMessage> {
     const { messagesRef, privateMessagesRef, privateChannel } = this.state;
     return privateChannel ? privateMessagesRef : messagesRef;
   };
-  handleStar = () => {
+  handleStar = (): void => {
     this.setState(
-      (prevState) => ({
+      (prevState: I.IStateMessage) => ({
         isChannelStarred: !prevState.isChannelStarred,
       }),
       () => this.starChannel()
     );
   };
-  starChannel = () => {
+  starChannel = (): void => {
     if (this.state.isChannelStarred) {
-      console.log('star');
+      this.state.usersRef.child(`${this.state.user.uid}/starred`).update({
+        [this.state.channel.id]: {
+          name: this.state.channel.name,
+          details: this.state.channel.details,
+          createdBy: {
+            name: this.state.channel.createdBy.name,
+            avatar: this.state.channel.createdBy.avatar,
+          },
+        },
+      });
     } else {
-      console.log('unstar');
+      this.state.usersRef
+        .child(`${this.state.user.uid}/starred`)
+        .child(this.state.channel.id)
+        .remove((err: Error) => {
+          if (err !== null) {
+            console.error(err);
+          }
+        });
     }
   };
   render() {

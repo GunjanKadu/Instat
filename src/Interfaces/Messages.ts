@@ -16,6 +16,7 @@ export interface IStateMessage {
   messagesRef?: firebase.database.Reference;
   channel?: IChannelArray;
   user?: IUser;
+  usersRef?: firebase.database.Reference;
   messages?: IMessage[];
   messagesLoading?: boolean;
   numUniqueUsers?: string;
