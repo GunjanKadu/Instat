@@ -47,12 +47,15 @@ export interface IStateMessageForm {
   percentUploaded?: number;
 }
 
-export interface IMessagesProp {
+export interface IMessagesOwnProp {
   currentChannel?: IChannelArray;
   currentUser?: IUser;
   isPrivateChannel?: boolean;
 }
-
+export interface IMessageReduxProps {
+  setUserPosts: (userPost: any) => void;
+}
+export type IMessagesProp = IMessagesOwnProp & IMessageReduxProps;
 export interface IMessage {
   timestamp: any;
   content?: string;
@@ -62,6 +65,10 @@ export interface IMessage {
     avatar: string;
   };
   image?: string;
+}
+export interface UserPosts {
+  avatar: string;
+  count: number;
 }
 
 export interface IPropsForMessage {

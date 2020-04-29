@@ -29,5 +29,9 @@ export interface ISetPrivateChannel
   extends Action<typeof actionsTypes.SET_PRIVATE_CHANNEL> {
   payload: boolean;
 }
+export interface ISetUserPosts
+  extends Action<typeof actionsTypes.SET_USER_POSTS> {
+  payload: any;
+}
 
-export type IActionChannel = ISetChannel | ISetPrivateChannel;
+export type IActionChannel = ISetChannel | ISetPrivateChannel | ISetUserPosts;

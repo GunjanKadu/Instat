@@ -41,3 +41,10 @@ export const setPrivateChannel = (
     payload: isPrivatechannel,
   };
 };
+
+export const setUserPosts = (userPosts: any): IActions.ISetUserPosts => {
+  return {
+    type: actionTypes.SET_USER_POSTS,
+    payload: userPosts,
+  };
+};

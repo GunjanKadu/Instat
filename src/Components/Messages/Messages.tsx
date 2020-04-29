@@ -14,8 +14,11 @@ import MessagesHeader from './MessagesHeader/MessagesHeader';
 import MessagesForm from './MessageForm/MessageForm';
 import firebase from '../../firebase';
 import Message from './Message/Message';
+import { connect } from 'react-redux';
 import * as I from '../../Interfaces/Messages';
 import { IChannelArray } from '../../Interfaces/SidePanel';
+import { IDispatch } from '../..';
+import { setUserPosts } from '../../Store/Actions';
 
 class Messages extends Component<I.IMessagesProp, I.IStateMessage> {
   state: I.IStateMessage = {
@@ -53,6 +56,7 @@ class Messages extends Component<I.IMessagesProp, I.IStateMessage> {
       this.setState({ messages: loadedMessages, messagesLoading: false });
 
       this.countUniqueUsers(loadedMessages);
+      this.countUserPosts(loadedMessages);
     });
   };
   addUserStarsListeners = (channelId: string, userId: string) => {
@@ -81,6 +85,20 @@ class Messages extends Component<I.IMessagesProp, I.IStateMessage> {
     const plural = uniqueUsers.length > 1 || uniqueUsers.length === 0;
     const numUniqueUsers = `${uniqueUsers.length} user${plural ? 's' : ''}`;
     this.setState({ numUniqueUsers: numUniqueUsers });
+  };
+  countUserPosts = (messages: I.IMessage[]) => {
+    let userPosts = messages.reduce((acc: any, message: I.IMessage): any => {
+      if (message.user.name in acc) {
+        acc[message.user.name].count += 1;
+      } else {
+        acc[message.user.name] = {
+          avatar: message.user.avatar,
+          count: 1,
+        };
+      }
+      return acc;
+    }, {});
+    this.props.setUserPosts(userPosts);
   };
   displayMessages = (messages: I.IMessage[]) =>
     messages.length > 0 &&
@@ -200,5 +218,9 @@ class Messages extends Component<I.IMessagesProp, I.IStateMessage> {
     );
   }
 }
-
-export default Messages;
+const mapDispatchToProps = (dispatch: IDispatch): I.IMessageReduxProps => {
+  return {
+    setUserPosts: (userPost: any) => dispatch(setUserPosts(userPost)),
+  };
+};
+export default connect(null, mapDispatchToProps)(Messages);

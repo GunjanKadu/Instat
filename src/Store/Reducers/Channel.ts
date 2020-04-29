@@ -15,6 +15,7 @@ import { IActionChannel } from '../../Interfaces/Action';
 const initialState: I.IChannel = {
   currentChannel: null,
   isPrivateChannel: false,
+  userPosts: null,
 };
 
 export const channelReducer = (
@@ -31,6 +32,11 @@ export const channelReducer = (
       return {
         ...state,
         isPrivateChannel: action.payload,
+      };
+    case actionTypes.SET_USER_POSTS:
+      return {
+        ...state,
+        userPosts: action.payload,
       };
 
     default:
