@@ -10,3 +10,5 @@
     7.search for a particualar message
     8.See if users is online or offline
     9.Star a channel or private chat
+    10.Info About the channel created
+    11.Analytics such as top poster in the channel and...
