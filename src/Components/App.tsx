@@ -42,6 +42,7 @@ const App = (props: I.IProps): JSX.Element => {
           currentChannel={props.currentChannel}
           isPrivateChannel={props.isPrivateChannel}
           key={props.currentChannel && props.currentChannel.id}
+          userPosts={props.userPosts}
         />
       </Grid.Column>
     </Grid>
@@ -52,6 +53,7 @@ const mapStateToProps = (state: IRootState): I.IProps => {
     currentUser: state.user.currentUser,
     currentChannel: state.channel.currentChannel,
     isPrivateChannel: state.channel.isPrivateChannel,
+    userPosts: state.channel.userPosts,
   };
 };
 export default connect(mapStateToProps)(App);

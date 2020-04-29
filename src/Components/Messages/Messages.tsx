@@ -86,18 +86,21 @@ class Messages extends Component<I.IMessagesProp, I.IStateMessage> {
     const numUniqueUsers = `${uniqueUsers.length} user${plural ? 's' : ''}`;
     this.setState({ numUniqueUsers: numUniqueUsers });
   };
-  countUserPosts = (messages: I.IMessage[]) => {
-    let userPosts = messages.reduce((acc: any, message: I.IMessage): any => {
-      if (message.user.name in acc) {
-        acc[message.user.name].count += 1;
-      } else {
-        acc[message.user.name] = {
-          avatar: message.user.avatar,
-          count: 1,
-        };
-      }
-      return acc;
-    }, {});
+  countUserPosts = (messages: I.IMessage[]): void => {
+    let userPosts: I.IUserPosts = messages.reduce(
+      (acc: any, message: I.IMessage): any => {
+        if (message.user.name in acc) {
+          acc[message.user.name].count += 1;
+        } else {
+          acc[message.user.name] = {
+            avatar: message.user.avatar,
+            count: 1,
+          };
+        }
+        return acc;
+      },
+      {}
+    );
     this.props.setUserPosts(userPosts);
   };
   displayMessages = (messages: I.IMessage[]) =>
@@ -220,7 +223,7 @@ class Messages extends Component<I.IMessagesProp, I.IStateMessage> {
 }
 const mapDispatchToProps = (dispatch: IDispatch): I.IMessageReduxProps => {
   return {
-    setUserPosts: (userPost: any) => dispatch(setUserPosts(userPost)),
+    setUserPosts: (userPost: I.IUserPosts) => dispatch(setUserPosts(userPost)),
   };
 };
 export default connect(null, mapDispatchToProps)(Messages);

@@ -48,7 +48,6 @@ class Channels extends Component<I.IProps, I.IChannel> {
   addListeners = () => {
     let loadedChannels: I.IChannelArray[] = [];
     this.state.channelsRef.on('child_added', (snap) => {
-      console.log(snap.val());
       loadedChannels.push(snap.val());
       this.setState({ channels: loadedChannels }, () => this.setFirstChannel());
       this.addNotificationListener(snap.key);
