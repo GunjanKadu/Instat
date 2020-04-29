@@ -10,6 +10,7 @@
 
 import * as I from './Auth';
 import * as IC from './SidePanel';
+import { IUserPosts } from './Messages';
 
 export interface IUserState {
   currentUser: I.TUser;
@@ -18,5 +19,5 @@ export interface IUserState {
 export interface IChannel {
   currentChannel: IC.IChannelArray | null;
   isPrivateChannel: boolean;
-  userPosts: any;
+  userPosts: IUserPosts;
 }

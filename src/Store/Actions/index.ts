@@ -12,6 +12,7 @@ import * as actionTypes from './types';
 import * as IActions from '../../Interfaces/Action';
 import { IUser } from '../../Interfaces/Auth';
 import * as I from '../../Interfaces/SidePanel';
+import { IUserPosts } from '../../Interfaces/Messages';
 
 // User Actions
 export const setUser = (user: IUser): IActions.ISetUser => {
@@ -42,7 +43,7 @@ export const setPrivateChannel = (
   };
 };
 
-export const setUserPosts = (userPosts: any): IActions.ISetUserPosts => {
+export const setUserPosts = (userPosts: IUserPosts): IActions.ISetUserPosts => {
   return {
     type: actionTypes.SET_USER_POSTS,
     payload: userPosts,

@@ -66,7 +66,7 @@ export interface IMessage {
   };
   image?: string;
 }
-export interface UserPosts {
+export interface IUserPosts {
   avatar: string;
   count: number;
 }

@@ -8,4 +8,5 @@ export interface IMetaState {
 export interface IMetaProps {
   isPrivateChannel?: boolean;
   currentChannel?: IChannelArray;
+  userPosts?: any;
 }

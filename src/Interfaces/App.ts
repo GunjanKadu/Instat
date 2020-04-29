@@ -15,4 +15,5 @@ export interface IProps {
   currentUser?: TUser;
   currentChannel?: IChannelArray;
   isPrivateChannel?: boolean;
+  userPosts?: any;
 }
