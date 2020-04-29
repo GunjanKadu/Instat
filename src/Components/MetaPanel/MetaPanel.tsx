@@ -9,10 +9,11 @@
  */
 
 import React, { Component } from 'react';
-import { Segment, Accordion, Header, Icon } from 'semantic-ui-react';
+import { Segment, Accordion, Header, Icon, Image } from 'semantic-ui-react';
 import * as I from '../../Interfaces/MetaPanel';
 class MetaPanel extends Component<I.IMetaProps, I.IMetaState> {
   state: I.IMetaState = {
+    channel: this.props.currentChannel,
     activeIndex: 0,
     privateChannel: this.props.isPrivateChannel,
   };
@@ -25,12 +26,12 @@ class MetaPanel extends Component<I.IMetaProps, I.IMetaState> {
   };
 
   render() {
-    const { activeIndex, privateChannel } = this.state;
+    const { activeIndex, privateChannel, channel } = this.state;
     if (privateChannel) return null;
     return (
-      <Segment>
+      <Segment loading={!channel}>
         <Header as='h3' attached='top'>
-          About # Channel
+          About # {channel && channel.name}
         </Header>
         <Accordion styled attached='true'>
           <Accordion.Title
@@ -43,7 +44,7 @@ class MetaPanel extends Component<I.IMetaProps, I.IMetaState> {
             Channel Details
           </Accordion.Title>
           <Accordion.Content active={activeIndex === 0}>
-            details
+            {channel && channel.details}
           </Accordion.Content>
 
           <Accordion.Title
@@ -69,7 +70,10 @@ class MetaPanel extends Component<I.IMetaProps, I.IMetaState> {
             Created By
           </Accordion.Title>
           <Accordion.Content active={activeIndex === 2}>
-            creator
+            <Header as='h3'>
+              <Image circular src={channel && channel.createdBy.avatar} />
+              {channel && channel.createdBy.name}
+            </Header>
           </Accordion.Content>
         </Accordion>
       </Segment>

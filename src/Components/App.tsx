@@ -39,6 +39,7 @@ const App = (props: I.IProps): JSX.Element => {
       </Grid.Column>
       <Grid.Column width={4}>
         <MetaPanel
+          currentChannel={props.currentChannel}
           isPrivateChannel={props.isPrivateChannel}
           key={props.currentChannel && props.currentChannel.id}
         />
