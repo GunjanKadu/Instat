@@ -22,7 +22,11 @@ import {
 import * as I from '../../Interfaces/ColorPanel';
 import { SliderPicker } from 'react-color';
 import firebase from '../../firebase';
-class ColorPanel extends Component<I.IColorPanelOwnProps, I.IColorPanelState> {
+import { connect } from 'react-redux';
+import { IDispatch } from '../..';
+import { setColors } from '../../Store/Actions';
+
+class ColorPanel extends Component<I.IColorPanelProps, I.IColorPanelState> {
   state: I.IColorPanelState = {
     modal: false,
     primary: '',
@@ -76,7 +80,10 @@ class ColorPanel extends Component<I.IColorPanelOwnProps, I.IColorPanelState> {
     colors.map((colors: I.IColorSnap, i: number) => (
       <React.Fragment key={i}>
         <Divider />
-        <div className='color_container'>
+        <div
+          className='color_container'
+          onClick={() => this.props.setColors(colors.primary, colors.secondary)}
+        >
           <div className='color_square' style={{ background: colors.primary }}>
             <div
               className='color_overlay'
@@ -135,5 +142,10 @@ class ColorPanel extends Component<I.IColorPanelOwnProps, I.IColorPanelState> {
     );
   }
 }
-
-export default ColorPanel;
+const mapDispatchToProps = (dispatch: IDispatch): I.IColorPanelReduxProps => {
+  return {
+    setColors: (primary: string, secondary: string) =>
+      dispatch(setColors(primary, secondary)),
+  };
+};
+export default connect(null, mapDispatchToProps)(ColorPanel);

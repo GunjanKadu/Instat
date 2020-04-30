@@ -12,6 +12,10 @@ export interface IColorPanelOwnProps {
   currentUser: TUser;
   key: string;
 }
+export interface IColorPanelReduxProps {
+  setColors: (primary: string, secondary: string) => void;
+}
+export type IColorPanelProps = IColorPanelOwnProps & IColorPanelReduxProps;
 export interface IColor {
   hex: string;
 }

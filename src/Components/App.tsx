@@ -18,7 +18,6 @@ import Messages from './Messages/Messages';
 import MetaPanel from './MetaPanel/MetaPanel';
 import { IRootState } from '../Store/Reducers/Index';
 import * as I from '../Interfaces/App';
-
 const App = (props: I.IProps): JSX.Element => {
   return (
     <Grid columns='equal' className='app' style={{ background: '#eee' }}>

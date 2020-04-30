@@ -53,6 +53,7 @@ body,
 
 /* Color Panel */
 .color_container {
+  cursor: pointer;
   position: relative;
   overflow: hidden;
   width: 35px;
