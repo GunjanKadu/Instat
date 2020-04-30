@@ -110,7 +110,7 @@ class Register extends Component<{}, I.IRegister> {
                 });
               });
             })
-            .catch((err: any) => {
+            .catch((err: Error) => {
               this.setState({
                 errors: this.state.errors.concat(err),
                 loading: false,

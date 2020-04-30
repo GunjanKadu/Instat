@@ -92,3 +92,20 @@ export interface IStarredOwnProps {
 }
 export type IStarredProps = IStarredReduxProps & IStarredOwnProps;
 export type IDirectMessagesProps = IDirectMessagesPropsRedux & IDirectOwnProps;
+
+export interface IUserPanelProps {
+  currentUser?: TUser;
+  primaryColor?: string;
+}
+export interface IUserPanelState {
+  user: TUser;
+  modal?: boolean;
+  previewImage?: any;
+  croppedImage: string;
+  blob: any;
+  storageRef: firebase.storage.Reference;
+  userRef: any;
+  metadata: { contentType: string };
+  uploadedCroppedImage: string;
+  usersRef: firebase.database.Reference;
+}
