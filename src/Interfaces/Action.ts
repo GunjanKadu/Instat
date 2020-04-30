@@ -35,3 +35,10 @@ export interface ISetUserPosts
 }
 
 export type IActionChannel = ISetChannel | ISetPrivateChannel | ISetUserPosts;
+
+// Colors
+export interface ISetColor extends Action<typeof actionsTypes.SET_COLORS> {
+  payload: { primary: string; secondary: string };
+}
+
+export type IActionColor = ISetColor;

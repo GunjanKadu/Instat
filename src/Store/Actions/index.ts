@@ -49,3 +49,14 @@ export const setUserPosts = (userPosts: IUserPosts): IActions.ISetUserPosts => {
     payload: userPosts,
   };
 };
+
+// Color  actions
+export const setColors = (
+  primary: string,
+  secondary: string
+): IActions.ISetColor => {
+  return {
+    type: actionTypes.SET_COLORS,
+    payload: { primary: primary, secondary: secondary },
+  };
+};

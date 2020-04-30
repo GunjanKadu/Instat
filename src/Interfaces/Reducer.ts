@@ -21,3 +21,8 @@ export interface IChannel {
   isPrivateChannel: boolean;
   userPosts: IUserPosts;
 }
+
+export interface IColorState {
+  primaryColor: string;
+  secondaryColor: string;
+}
