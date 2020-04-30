@@ -22,6 +22,7 @@ import {
 } from 'semantic-ui-react';
 import firebase from '../../../firebase';
 import { TUser } from '../../../Interfaces/Auth';
+import AvatarEditor from 'react-avatar-editor';
 
 interface IStateProps {
   currentUser?: TUser;
@@ -30,12 +31,14 @@ interface IStateProps {
 interface IState {
   user: TUser;
   modal?: boolean;
+  previewImage?: any;
 }
 
 class UserPanel extends Component<IStateProps, IState> {
   state = {
     user: this.props.currentUser,
     modal: false,
+    previewImage: '',
   };
   openModal = () => this.setState({ modal: true });
 
@@ -60,7 +63,18 @@ class UserPanel extends Component<IStateProps, IState> {
       key: 'signout',
     },
   ];
-
+  handleChange = (event: any) => {
+    console.log(event);
+    console.log(event.target.files);
+    const file = event.target.files[0];
+    const reader = new FileReader();
+    if (file) {
+      reader.readAsDataURL(file);
+      reader.addEventListener('load', () => {
+        this.setState({ previewImage: reader.result });
+      });
+    }
+  };
   handleSignout = () => {
     firebase
       .auth()
@@ -68,7 +82,7 @@ class UserPanel extends Component<IStateProps, IState> {
       .then(() => console.log('signed out!'));
   };
   render() {
-    const { user, modal } = this.state;
+    const { user, modal, previewImage } = this.state;
     const { primaryColor } = this.props;
     return (
       <Grid style={{ background: primaryColor }}>
@@ -96,11 +110,25 @@ class UserPanel extends Component<IStateProps, IState> {
           <Modal basic open={modal} onClose={this.closeModal}>
             <Modal.Header>Change Avatar</Modal.Header>
             <Modal.Content>
-              <Input fluid type='file' label='New Avatar' name='previewImage' />
+              <Input
+                onChange={this.handleChange}
+                fluid
+                type='file'
+                label='New Avatar'
+                name='previewImage'
+              />
               <Grid centered stackable columns={2}>
                 <Grid.Row centered>
                   <GridColumn className='ui center aligned grid'>
-                    {/* Image Preview */}
+                    {previewImage && (
+                      <AvatarEditor
+                        image={previewImage}
+                        width={120}
+                        height={120}
+                        border={50}
+                        scale={1.2}
+                      />
+                    )}
                   </GridColumn>
                   <GridColumn>{/* Cropped Image Preview */}</GridColumn>
                 </Grid.Row>

@@ -13,3 +13,4 @@
     10.Info About the channel created
     11.Analytics such as top poster in the channel and...
     12.Theme picker for users to choose different themes for the application
+    13.Edit User image crop,resize
