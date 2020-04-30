@@ -32,13 +32,19 @@ interface IState {
   user: TUser;
   modal?: boolean;
   previewImage?: any;
+  croppedImage: string;
+  blob: any;
 }
 
 class UserPanel extends Component<IStateProps, IState> {
+  private avatarEditor: AvatarEditor;
+
   state = {
     user: this.props.currentUser,
     modal: false,
     previewImage: '',
+    croppedImage: '',
+    blob: '',
   };
   openModal = () => this.setState({ modal: true });
 
@@ -81,8 +87,17 @@ class UserPanel extends Component<IStateProps, IState> {
       .signOut()
       .then(() => console.log('signed out!'));
   };
+  handleCropImage = () => {
+    if (this.avatarEditor) {
+      console.log(this.avatarEditor);
+      this.avatarEditor.getImageScaledToCanvas().toBlob((blob: any) => {
+        let imageUrl = URL.createObjectURL(blob);
+        this.setState({ croppedImage: imageUrl, blob: blob });
+      });
+    }
+  };
   render() {
-    const { user, modal, previewImage } = this.state;
+    const { user, modal, previewImage, croppedImage } = this.state;
     const { primaryColor } = this.props;
     return (
       <Grid style={{ background: primaryColor }}>
@@ -122,6 +137,7 @@ class UserPanel extends Component<IStateProps, IState> {
                   <GridColumn className='ui center aligned grid'>
                     {previewImage && (
                       <AvatarEditor
+                        ref={(node) => (this.avatarEditor = node)}
                         image={previewImage}
                         width={120}
                         height={120}
@@ -130,16 +146,27 @@ class UserPanel extends Component<IStateProps, IState> {
                       />
                     )}
                   </GridColumn>
-                  <GridColumn>{/* Cropped Image Preview */}</GridColumn>
+                  <GridColumn>
+                    {croppedImage && (
+                      <Image
+                        style={{ margin: '3.5em auto' }}
+                        width={100}
+                        height={100}
+                        src={croppedImage}
+                      />
+                    )}
+                  </GridColumn>
                 </Grid.Row>
               </Grid>
             </Modal.Content>
             <Modal.Actions>
-              <Button color='green' inverted>
-                <Icon name='save' />
-                Change Avatar
-              </Button>
-              <Button color='green' inverted>
+              {croppedImage && (
+                <Button color='green' inverted>
+                  <Icon name='save' />
+                  Change Avatar
+                </Button>
+              )}
+              <Button color='green' inverted onClick={this.handleCropImage}>
                 <Icon name='image' />
                 Preview
               </Button>
