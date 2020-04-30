@@ -1,3 +1,16 @@
+import { TUser } from './Auth';
+
 export interface IColorPanelState {
   modal: boolean;
+  primary: string;
+  secondary: string;
+  usersRef: firebase.database.Reference;
+  user: TUser;
+}
+export interface IColorPanelOwnProps {
+  currentUser: TUser;
+  key: string;
+}
+export interface IColor {
+  hex: string;
 }

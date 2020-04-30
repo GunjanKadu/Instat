@@ -22,7 +22,10 @@ import * as I from '../Interfaces/App';
 const App = (props: I.IProps): JSX.Element => {
   return (
     <Grid columns='equal' className='app' style={{ background: '#eee' }}>
-      <ColorPanel />
+      <ColorPanel
+        currentUser={props.currentUser}
+        key={props.currentUser && props.currentUser.name}
+      />
 
       <SidePanel
         key={props.currentUser && props.currentUser.uid}
@@ -41,7 +44,7 @@ const App = (props: I.IProps): JSX.Element => {
         <MetaPanel
           currentChannel={props.currentChannel}
           isPrivateChannel={props.isPrivateChannel}
-          key={props.currentChannel && props.currentChannel.id}
+          key={props.currentChannel && props.currentChannel.name}
           userPosts={props.userPosts}
         />
       </Grid.Column>
