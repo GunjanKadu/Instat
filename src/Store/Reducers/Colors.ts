@@ -13,8 +13,8 @@ import * as I from '../../Interfaces/Reducer';
 import { IActionColor } from '../../Interfaces/Action';
 
 const initialState: I.IColorState = {
-  primaryColor: '',
-  secondaryColor: '',
+  primaryColor: '#3a133e',
+  secondaryColor: '#eee',
 };
 
 export const colorReducer = (

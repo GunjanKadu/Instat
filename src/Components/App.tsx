@@ -20,7 +20,11 @@ import { IRootState } from '../Store/Reducers/Index';
 import * as I from '../Interfaces/App';
 const App = (props: I.IProps): JSX.Element => {
   return (
-    <Grid columns='equal' className='app' style={{ background: '#eee' }}>
+    <Grid
+      columns='equal'
+      className='app'
+      style={{ background: props.secondaryColors }}
+    >
       <ColorPanel
         currentUser={props.currentUser}
         key={props.currentUser && props.currentUser.name}
@@ -29,6 +33,7 @@ const App = (props: I.IProps): JSX.Element => {
       <SidePanel
         key={props.currentUser && props.currentUser.uid}
         currentUser={props.currentUser}
+        primaryColor={props.primaryColors}
       />
 
       <Grid.Column style={{ marginLeft: 320 }}>
@@ -56,6 +61,8 @@ const mapStateToProps = (state: IRootState): I.IProps => {
     currentChannel: state.channel.currentChannel,
     isPrivateChannel: state.channel.isPrivateChannel,
     userPosts: state.channel.userPosts,
+    primaryColors: state.color.primaryColor,
+    secondaryColors: state.color.secondaryColor,
   };
 };
 export default connect(mapStateToProps)(App);

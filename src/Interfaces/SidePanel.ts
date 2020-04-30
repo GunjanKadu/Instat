@@ -12,6 +12,7 @@ import { TUser, IUser } from './Auth';
 
 export interface IOwnProps {
   currentUser: TUser;
+  primaryColor?: string;
   setChannel?: (channel: IChannelArray) => void;
 }
 export interface IReduxProps {

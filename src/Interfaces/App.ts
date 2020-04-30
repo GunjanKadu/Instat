@@ -16,4 +16,6 @@ export interface IProps {
   currentChannel?: IChannelArray;
   isPrivateChannel?: boolean;
   userPosts?: any;
+  primaryColors?: string;
+  secondaryColors?: string;
 }

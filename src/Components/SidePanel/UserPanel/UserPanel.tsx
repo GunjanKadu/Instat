@@ -15,6 +15,7 @@ import { TUser } from '../../../Interfaces/Auth';
 
 interface IStateProps {
   currentUser?: TUser;
+  primaryColor?: string;
 }
 interface IState {
   user: TUser;
@@ -50,8 +51,9 @@ class UserPanel extends Component<IStateProps, IState> {
   };
   render() {
     const { user } = this.state;
+    const { primaryColor } = this.props;
     return (
-      <Grid style={{ background: '#3a133e' }}>
+      <Grid style={{ background: primaryColor }}>
         <Grid.Column>
           <Grid.Row style={{ padding: '1.2em', margin: 0 }}>
             {/* Main Application Header */}
