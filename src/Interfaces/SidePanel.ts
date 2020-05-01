@@ -35,6 +35,7 @@ export interface IChannel {
   firstLoad?: boolean;
   notifications?: INotifications[];
   channel?: IChannelArray;
+  typingRef?: firebase.database.Reference;
 }
 
 export interface INewChannel {

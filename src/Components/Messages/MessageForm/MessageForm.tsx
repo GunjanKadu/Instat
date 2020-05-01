@@ -30,6 +30,7 @@ export default class MessageForm extends Component<
     uploadState: '',
     uploadTask: null,
     storageRef: firebase.storage().ref(),
+    typingRef: firebase.database().ref('typing'),
     percentUploaded: 0,
   };
   openModal = () => {
@@ -109,7 +110,7 @@ export default class MessageForm extends Component<
   };
   sendMessage = () => {
     const { getMessagesRef } = this.props;
-    const { message, channel } = this.state;
+    const { message, channel, user, typingRef } = this.state;
     if (message) {
       this.setState({ loading: true });
       getMessagesRef()
@@ -118,6 +119,7 @@ export default class MessageForm extends Component<
         .set(this.createMessage())
         .then(() => {
           this.setState({ loading: false, message: '', errors: [] });
+          typingRef.child(channel.id).child(user.uid).remove();
         })
         .catch((err: Error) => {
           this.setState({
@@ -129,6 +131,14 @@ export default class MessageForm extends Component<
       this.setState({
         errors: this.state.errors.concat({ message: 'Add A Message' }),
       });
+    }
+  };
+  handleKeyDown = () => {
+    const { message, typingRef, channel, user } = this.state;
+    if (message) {
+      typingRef.child(channel.id).child(user.uid).set(user.displayName);
+    } else {
+      typingRef.child(channel.id).child(user.uid).remove();
     }
   };
   createMessage = (fileUrl: any = null): I.IMessage => {
@@ -165,6 +175,7 @@ export default class MessageForm extends Component<
           name='message'
           onChange={this.handleChange}
           value={message}
+          onKeyDown={this.handleKeyDown}
           style={{ marginBottom: '0.7em' }}
           label={<Button icon='add'></Button>}
           labelPosition='left'

@@ -45,6 +45,7 @@ export interface IStateMessageForm {
   uploadTask?: any;
   storageRef?: firebase.storage.Reference;
   percentUploaded?: number;
+  typingRef?: firebase.database.Reference;
 }
 
 export interface IMessagesOwnProp {

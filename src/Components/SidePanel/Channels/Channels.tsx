@@ -35,6 +35,7 @@ class Channels extends Component<I.IProps, I.IChannel> {
     modal: false,
     channelsRef: firebase.database().ref('channels'),
     messageRef: firebase.database().ref('messages'),
+    typingRef: firebase.database().ref('typing'),
     notifications: [],
     firstLoad: true,
   };
@@ -184,6 +185,10 @@ class Channels extends Component<I.IProps, I.IChannel> {
     this.props.setChannel(channel);
     this.props.setPrivateChannel(false);
     this.setState({ channel: channel });
+    this.state.typingRef
+      .child(this.state.channel.id)
+      .child(this.state.user.uid)
+      .remove();
   };
 
   setActiveChannel = (channel: I.IChannelArray) => {
