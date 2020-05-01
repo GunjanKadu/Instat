@@ -25,6 +25,9 @@ export interface IStateMessage {
   searchResult?: IMessage[];
   privateMessagesRef?: firebase.database.Reference;
   isChannelStarred?: boolean;
+  typingRef?: firebase.database.Reference;
+  typingUsers?: { id: string; name: any }[];
+  connectedRef?: firebase.database.Reference;
 }
 
 export interface IPropsMessageForm {
