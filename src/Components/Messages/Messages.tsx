@@ -19,6 +19,7 @@ import * as I from '../../Interfaces/Messages';
 import { IChannelArray } from '../../Interfaces/SidePanel';
 import { IDispatch } from '../..';
 import { setUserPosts } from '../../Store/Actions';
+import Typing from './Typing/Typing';
 
 class Messages extends Component<I.IMessagesProp, I.IStateMessage> {
   state: I.IStateMessage = {
@@ -208,6 +209,10 @@ class Messages extends Component<I.IMessagesProp, I.IStateMessage> {
             {searchTerm
               ? this.displayMessages(searchResult)
               : this.displayMessages(messages)}
+            <div style={{ display: 'flex', alignItems: 'center' }}>
+              <span className='user_typing'>Gunjan Is Typing</span>
+              <Typing />
+            </div>
           </Comment.Group>
         </Segment>
         <MessagesForm
