@@ -9,8 +9,9 @@
     6.Download Images
     7.search for a particualar message
     8.See if users is online or offline
-    9.Star a channel or private chat
-    10.Info About the channel created
-    11.Analytics such as top poster in the channel and...
-    12.Theme picker for users to choose different themes for the application
-    13.Edit User image crop,resize
+    9.See if user is typing.
+    10.Star a channel or private chat
+    11.Info About the channel created
+    12.Analytics such as top poster in the channel and...
+    13.Theme picker for users to choose different themes for the application
+    14.Edit User image crop,resize
