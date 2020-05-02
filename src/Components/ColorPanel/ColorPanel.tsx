@@ -41,7 +41,13 @@ class ColorPanel extends Component<I.IColorPanelProps, I.IColorPanelState> {
       this.addListener(this.state.user.uid);
     }
   }
+  componentWillUnmount() {
+    this.removeListeners();
+  }
 
+  removeListeners = () => {
+    this.state.usersRef.child(`${this.state.user.uid}/colors`).off();
+  };
   addListener = (userId: string) => {
     let userColor: I.IColorSnap[] = [];
     this.state.usersRef.child(`${userId}/colors`).on('child_added', (snap) => {
