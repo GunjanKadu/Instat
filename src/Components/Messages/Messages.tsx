@@ -22,6 +22,8 @@ import { setUserPosts } from '../../Store/Actions';
 import Typing from './Typing/Typing';
 
 class Messages extends Component<I.IMessagesProp, I.IStateMessage> {
+  private messagesEnd: any;
+
   state: I.IStateMessage = {
     messagesRef: firebase.database().ref('messages'),
     privateMessagesRef: firebase.database().ref('privateMessages'),
@@ -48,7 +50,14 @@ class Messages extends Component<I.IMessagesProp, I.IStateMessage> {
       this.addUserStarsListeners(channel.id, user.uid);
     }
   }
-
+  componentDidUpdate(prevProps: I.IMessagesProp, prevState: I.IStateMessage) {
+    if (this.messagesEnd) {
+      this.scrollToBottom();
+    }
+  }
+  scrollToBottom = () => {
+    this.messagesEnd.scrollIntoView({ behaviour: 'smooth' });
+  };
   addListeners = (channelId: string) => {
     this.addMessageListeners(channelId);
     this.addTypingListener(channelId);
@@ -267,6 +276,7 @@ class Messages extends Component<I.IMessagesProp, I.IStateMessage> {
               ? this.displayMessages(searchResult)
               : this.displayMessages(messages)}
             {this.displayTypingUsers(typingUsers)}
+            <div ref={(node) => (this.messagesEnd = node)}></div>
           </Comment.Group>
         </Segment>
         <MessagesForm
