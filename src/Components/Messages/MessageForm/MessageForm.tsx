@@ -37,6 +37,14 @@ export default class MessageForm extends Component<
     percentUploaded: 0,
     emojiPicker: false,
   };
+
+  componentWillUnmount() {
+    if (this.state.uploadTask !== null) {
+      this.state.uploadTask.cancel();
+      this.setState({ uploadTask: null });
+    }
+  }
+
   openModal = () => {
     this.setState({ modal: true });
   };
