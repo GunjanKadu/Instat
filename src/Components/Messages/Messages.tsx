@@ -42,15 +42,39 @@ class Messages extends Component<I.IMessagesProp, I.IStateMessage> {
     searchResult: [],
     isChannelStarred: false,
     typingUsers: [],
+    listeners: [],
   };
 
   componentDidMount() {
-    const { channel, user } = this.state;
+    const { channel, user, listeners } = this.state;
     if (channel && user) {
+      this.removeListeners(listeners);
       this.addListeners(channel.id);
       this.addUserStarsListeners(channel.id, user.uid);
     }
   }
+  componentWillUnmount() {
+    this.removeListeners(this.state.listeners);
+    this.state.connectedRef.off();
+  }
+  removeListeners = (listeners: { id: string; ref: any; event: string }[]) => {
+    listeners.forEach((listeners: { id: string; ref: any; event: string }) => {
+      listeners.ref.child(listeners.id).off(listeners.event);
+    });
+  };
+  addToListeners = (id: string, ref: any, event: string): void => {
+    const index: number = this.state.listeners.findIndex((listeners) => {
+      return (
+        listeners.id === id &&
+        listeners.ref === ref &&
+        listeners.event === event
+      );
+    });
+    if (index === -1) {
+      const newListener = { id, ref, event };
+      this.setState({ listeners: this.state.listeners.concat(newListener) });
+    }
+  };
   componentDidUpdate(prevProps: I.IMessagesProp, prevState: I.IStateMessage) {
     if (this.messagesEnd) {
       this.scrollToBottom();
@@ -73,6 +97,7 @@ class Messages extends Component<I.IMessagesProp, I.IStateMessage> {
       this.countUniqueUsers(loadedMessages);
       this.countUserPosts(loadedMessages);
     });
+    this.addToListeners(channelId, ref, 'child_added');
   };
   addUserStarsListeners = (channelId: string, userId: string) => {
     this.state.usersRef
@@ -98,6 +123,8 @@ class Messages extends Component<I.IMessagesProp, I.IStateMessage> {
         this.setState({ typingUsers: typingUsers });
       }
     });
+
+    this.addToListeners(channelId, this.state.typingRef, 'child_added');
     this.state.typingRef.child(channelId).on('child_removed', (snap) => {
       const index = typingUsers.findIndex(
         (user: { id: string; name: any }) => user.id === snap.key
@@ -109,6 +136,7 @@ class Messages extends Component<I.IMessagesProp, I.IStateMessage> {
         this.setState({ typingUsers: typingUsers });
       }
     });
+    this.addToListeners(channelId, this.state.typingRef, 'child_removed');
 
     this.state.connectedRef.on('value', (snap) => {
       if (snap.val() === true) {
