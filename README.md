@@ -16,7 +16,7 @@
     13.Theme picker for users to choose different themes for the application
     14.Edit User image crop,resize
 
-## Firebase Rules For Resources
+## Firebase Rules For Media Files
 
         rules_version = '2';
         service firebase.storage {
