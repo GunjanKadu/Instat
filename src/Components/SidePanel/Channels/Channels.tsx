@@ -98,6 +98,9 @@ class Channels extends Component<I.IProps, I.IChannel> {
   };
   removeListeners = (): void => {
     this.state.channelsRef.off();
+    this.state.channels.forEach((channel: I.IChannelArray) => {
+      this.state.messageRef.child(channel.id).off();
+    });
   };
 
   setFirstChannel = (): void => {
