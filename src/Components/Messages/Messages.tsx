@@ -20,6 +20,7 @@ import { IChannelArray } from '../../Interfaces/SidePanel';
 import { IDispatch } from '../..';
 import { setUserPosts } from '../../Store/Actions';
 import Typing from './Typing/Typing';
+import Skeleton from './Skeleton/Skeleton';
 
 class Messages extends Component<I.IMessagesProp, I.IStateMessage> {
   private messagesEnd: any;
@@ -230,6 +231,14 @@ class Messages extends Component<I.IMessagesProp, I.IStateMessage> {
         });
     }
   };
+  displayMessagesSkeleton = (loading: boolean) =>
+    loading ? (
+      <React.Fragment>
+        {[...Array(10)].map((_, i: number) => (
+          <Skeleton key={i} />
+        ))}
+      </React.Fragment>
+    ) : null;
   displayTypingUsers = (typingUser: { id: string; name: any }[]) =>
     typingUser.length > 0 &&
     typingUser.map((user: { id: string; name: any }) => (
@@ -258,6 +267,7 @@ class Messages extends Component<I.IMessagesProp, I.IStateMessage> {
       privateChannel,
       isChannelStarred,
       typingUsers,
+      messagesLoading,
     } = this.state;
     return (
       <React.Fragment>
@@ -272,6 +282,7 @@ class Messages extends Component<I.IMessagesProp, I.IStateMessage> {
         />
         <Segment>
           <Comment.Group className='messages'>
+            {this.displayMessagesSkeleton(messagesLoading)}
             {searchTerm
               ? this.displayMessages(searchResult)
               : this.displayMessages(messages)}

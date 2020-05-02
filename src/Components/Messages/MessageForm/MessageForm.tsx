@@ -7,7 +7,7 @@
  * @date   2020-04-25 23:43:18
  *
  */
-import React, { Component, RefObject } from 'react';
+import React, { Component } from 'react';
 import uuidv4 from 'uuid/v4';
 import { Segment, Button, Input } from 'semantic-ui-react';
 
