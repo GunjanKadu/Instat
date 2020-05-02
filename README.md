@@ -15,3 +15,30 @@
     12.Analytics such as top poster in the channel and...
     13.Theme picker for users to choose different themes for the application
     14.Edit User image crop,resize
+
+## Firebase Rules For Resources
+
+        rules_version = '2';
+        service firebase.storage {
+        match /b/react-slack-clone-4b014.appspot.com/o {
+        match /avatars {
+        match /users/{userId}{
+        allow read:if request.auth!=null;
+        allow write:if request.auth!=null && request.auth.uid == userId && request.resource.contentType.matches('image/.*')
+            && request.resource.size<5*1024*1024;
+                }
+        }
+        match /chat{
+        match /public/{imagePath=**}{
+        allow read:if request.auth!=null;
+        allow write:if request.auth!=null && request.resource.contentType.matches('image/.*')
+                        && request.resource.size<5*1024*1024;
+        }
+        match /private/{userId1}/{userId2}/{imagePath=**}{
+        allow read:if request.auth!=null && (request.auth.uid==userId1 || request.auth.uid==userId2);
+        allow write:if request.auth !=null && (request.auth.uid==userId1 || request.auth.uid==userId2) && request.resource.contentType.matches('image/.*')
+                        && request.resource.size<5*1024*1024;
+                }
+            }
+        }
+        }
