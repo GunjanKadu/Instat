@@ -1,3 +1,22 @@
+<h1 align="center">Instat (Instant Chat)</h1>
+
+<p align="center">Live at - https://react-slack-clone-4b014.web.app/</p>
+<br/>
+<p align="center"> This project is an Instant Chat Application imitating <a href="https://slack.com">Slack</a>, bringing the team together,wherever you are.  </p>
+<p align="center">Productive teamwork happens in channels — organized spaces for everything related to a project, topic or team.</p>
+<p align="center">It is created with React,Redux and TypeScript with Firebase providing real time function and updates.</p>
+
+
+## Made Using
+
+- [React](https://github.com/facebook/react) 
+- [Redux](https://github.com/reduxjs/redux) - State Management 
+- [TypeScript](https://github.com/microsoft/TypeScript) - Strongly Typed No JS
+- [CSS Animations] - Animation Effect
+- [Firebase](https://github.com/firebase/firebase-functions) - Real Time Updates and Authentication
+- [Redux Dev Tool](https://github.com/reduxjs/redux-devtools) - a connector to [redux devtool](https://chrome.google.com/webstore/detail/redux-devtools/lmhkpmbekcpmknklioeibfkpmmfibljd?hl=en-US) for chrome
+
+
 ## Features
 
     1.User Authentication SignUp/Signin
@@ -7,14 +26,15 @@
     4.Send Real Time messages
     5.Upload Images In real time and see the preview
     6.Download Images
-    7.search for a particualar message
+    7.Search for a Particualar message
     8.See if users is online or offline
     9.See if user is typing.
-    10.Star a channel or private chat
-    11.Info About the channel created
-    12.Analytics such as top poster in the channel and...
+    10.Star a Channel or private chat and add To Your Favs
+    11.Info About the Channel Created
+    12.Analytics such as top poster in the channel and Top Messages
     13.Theme picker for users to choose different themes for the application
     14.Edit User image crop,resize
+    15.Emoji Support
 
 ## Firebase Rules For Media Files
 
