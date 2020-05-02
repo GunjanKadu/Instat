@@ -28,6 +28,7 @@ export interface IStateMessage {
   typingRef?: firebase.database.Reference;
   typingUsers?: { id: string; name: any }[];
   connectedRef?: firebase.database.Reference;
+  listeners: { id: string; ref: any; event: string }[];
 }
 
 export interface IPropsMessageForm {
