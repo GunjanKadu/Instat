@@ -7,7 +7,7 @@
  * @date   2020-04-25 23:43:18
  *
  */
-import React, { Component } from 'react';
+import React, { Component, RefObject } from 'react';
 import uuidv4 from 'uuid/v4';
 import { Segment, Button, Input } from 'semantic-ui-react';
 
@@ -22,6 +22,7 @@ export default class MessageForm extends Component<
   I.IPropsMessageForm,
   I.IStateMessageForm
 > {
+  private messageInputRef: any;
   state: I.IStateMessageForm = {
     message: '',
     loading: false,
@@ -154,6 +155,7 @@ export default class MessageForm extends Component<
       `${oldMessage} ${emoji.colons}`
     );
     this.setState({ message: newMessage, emojiPicker: false });
+    setTimeout(() => this.messageInputRef.focus(), 0);
   };
   colonToUnicode = (message: string): string => {
     return message.replace(/:[A-Za-z0-9_+-]+:/g, (x: string) => {
@@ -212,9 +214,16 @@ export default class MessageForm extends Component<
           name='message'
           onChange={this.handleChange}
           value={message}
+          ref={(node) => (this.messageInputRef = node)}
           onKeyDown={this.handleKeyDown}
           style={{ marginBottom: '0.7em' }}
-          label={<Button icon='add' onClick={this.handleTogglePicker} />}
+          label={
+            <Button
+              icon={emojiPicker ? 'close' : 'add'}
+              content={emojiPicker ? 'Close' : null}
+              onClick={this.handleTogglePicker}
+            />
+          }
           labelPosition='left'
           placeholder='Write Your Message'
           className={
