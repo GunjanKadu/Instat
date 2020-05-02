@@ -6,16 +6,14 @@
 <p align="center">Productive teamwork happens in channels — organized spaces for everything related to a project, topic or team.</p>
 <p align="center">It is created with React,Redux and TypeScript with Firebase providing real time function and updates.</p>
 
-
 ## Made Using
 
-- [React](https://github.com/facebook/react) 
-- [Redux](https://github.com/reduxjs/redux) - State Management 
+- [React](https://github.com/facebook/react)
+- [Redux](https://github.com/reduxjs/redux) - State Management
 - [TypeScript](https://github.com/microsoft/TypeScript) - Strongly Typed No JS
 - [CSS Animations] - Animation Effect
 - [Firebase](https://github.com/firebase/firebase-functions) - Real Time Updates and Authentication
 - [Redux Dev Tool](https://github.com/reduxjs/redux-devtools) - a connector to [redux devtool](https://chrome.google.com/webstore/detail/redux-devtools/lmhkpmbekcpmknklioeibfkpmmfibljd?hl=en-US) for chrome
-
 
 ## Features
 
@@ -26,7 +24,7 @@
     4.Send Real Time messages
     5.Upload Images In real time and see the preview
     6.Download Images
-    7.Search for a Particualar message
+    7.Search for a Particular message
     8.See if users is online or offline
     9.See if user is typing.
     10.Star a Channel or private chat and add To Your Favs
@@ -35,6 +33,35 @@
     13.Theme picker for users to choose different themes for the application
     14.Edit User image crop,resize
     15.Emoji Support
+
+<h2 align="center">Demo</h2>
+
+### Login and Adding A Channel
+
+![](gif/1.gif)
+
+### Adding Messages Emoji And Images With Channel Details & Analytics
+
+![](gif/2.gif)
+
+### Search For A Particular Message or User In A Channel
+
+![](gif/3.gif)
+
+### Setting Color Themes As Per User's Wish
+
+![](gif/4.gif)
+
+### Starring A Particular Channel and Marking it as Favourite
+
+![](gif/5.gif)
+
+### See when a User is typing,When a User is online or offine
+
+![](gif/6.gif)
+
+<br>
+<br>
 
 ## Firebase Rules For Media Files
 
