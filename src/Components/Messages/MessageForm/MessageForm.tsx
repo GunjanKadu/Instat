@@ -15,6 +15,8 @@ import * as I from '../../../Interfaces/Messages';
 import firebase from '../../../firebase';
 import FileModal from './FileModal/FileModal';
 import ProgressBar from './ProgressBar/ProgressBar';
+import { Picker, emojiIndex } from 'emoji-mart';
+import 'emoji-mart/css/emoji-mart.css';
 
 export default class MessageForm extends Component<
   I.IPropsMessageForm,
@@ -32,6 +34,7 @@ export default class MessageForm extends Component<
     storageRef: firebase.storage().ref(),
     typingRef: firebase.database().ref('typing'),
     percentUploaded: 0,
+    emojiPicker: false,
   };
   openModal = () => {
     this.setState({ modal: true });
@@ -141,6 +144,31 @@ export default class MessageForm extends Component<
       typingRef.child(channel.id).child(user.uid).remove();
     }
   };
+  handleTogglePicker = () => {
+    this.setState({ emojiPicker: !this.state.emojiPicker });
+  };
+  handleEmojiSelect = (emoji: I.IEmoji): void => {
+    console.log(emoji);
+    const oldMessage: string = this.state.message;
+    const newMessage: string = this.colonToUnicode(
+      `${oldMessage} ${emoji.colons}`
+    );
+    this.setState({ message: newMessage, emojiPicker: false });
+  };
+  colonToUnicode = (message: string): string => {
+    return message.replace(/:[A-Za-z0-9_+-]+:/g, (x: string) => {
+      x = x.replace(/:/g, '');
+      let emoji: any = emojiIndex.emojis[x];
+      if (typeof emoji !== 'undefined') {
+        let unicode = emoji.native;
+        if (typeof unicode !== 'undefined') {
+          return unicode;
+        }
+      }
+      x = ':' + x + ':';
+      return x;
+    });
+  };
   createMessage = (fileUrl: any = null): I.IMessage => {
     const message: I.IMessage = {
       timestamp: firebase.database.ServerValue.TIMESTAMP,
@@ -167,9 +195,18 @@ export default class MessageForm extends Component<
       modal,
       uploadState,
       percentUploaded,
+      emojiPicker,
     } = this.state;
     return (
       <Segment className='message_form'>
+        {emojiPicker && (
+          <Picker
+            onSelect={this.handleEmojiSelect}
+            set='apple'
+            title='Pick Your Emoji'
+            emoji='point_up'
+          />
+        )}
         <Input
           fluid
           name='message'
@@ -177,7 +214,7 @@ export default class MessageForm extends Component<
           value={message}
           onKeyDown={this.handleKeyDown}
           style={{ marginBottom: '0.7em' }}
-          label={<Button icon='add'></Button>}
+          label={<Button icon='add' onClick={this.handleTogglePicker} />}
           labelPosition='left'
           placeholder='Write Your Message'
           className={

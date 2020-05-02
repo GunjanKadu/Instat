@@ -48,7 +48,18 @@ export interface IStateMessageForm {
   uploadTask?: any;
   storageRef?: firebase.storage.Reference;
   percentUploaded?: number;
+  emojiPicker?: boolean;
   typingRef?: firebase.database.Reference;
+}
+export interface IEmoji {
+  colons: string;
+  emoticons: string[];
+  id: string;
+  name: string;
+  native: string;
+  short_names: string[];
+  skin: any;
+  unified: string;
 }
 
 export interface IMessagesOwnProp {
