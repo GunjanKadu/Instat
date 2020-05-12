@@ -1,5 +1,5 @@
 {
-  "name": "slackclone",
+  "name": "Instat",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
@@ -21,8 +21,11 @@
     "@types/redux": "^3.6.0",
     "@types/uuid": "^7.0.3",
     "@types/uuidv4": "^5.0.0",
+    "electron": "^8.2.5",
+    "electron-builder": "^22.6.0",
     "emoji-mart": "^3.0.0",
     "firebase": "^7.14.1",
+    "foreman": "^3.0.1",
     "md5": "^2.2.1",
     "mime": "^2.4.4",
     "moment": "^2.24.0",
@@ -41,10 +44,25 @@
     "uuidv4": "^6.0.7"
   },
   "scripts": {
+    "dev": "nf start",
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "test": "react-scripts test --env=jsdom",
+    "eject": "react-scripts eject",
+    "electron": "electron .",
+    "ebuild": "yarn build && node_modules/.bin/build"
+  },
+  "description": "Electron Implementation of Instat Desktop",
+  "homepage": "./",
+  "main": "electron/main.js",
+  "build": {
+    "productName": "Instat",
+    "appId": "com.gk.Instat",
+    "electronVersion": "1.7.10",
+    "files": [
+      "build/**/*",
+      "electron/*"
+    ]
   },
   "eslintConfig": {
     "extends": "react-app"
