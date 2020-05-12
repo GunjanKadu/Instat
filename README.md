@@ -4,12 +4,13 @@
 <br/>
 <p align="center"> This project is an Instant Chat Application imitating <a href="https://slack.com">Slack</a>, bringing the team together,wherever you are.  </p>
 <p align="center">Productive teamwork happens in channels — organized spaces for everything related to a project, topic or team.</p>
-<p align="center">It is created with React,Redux and TypeScript with Firebase providing real time function and updates.</p>
+<p align="center">It is created with React,Redux,Electron and TypeScript with Firebase providing real time function and updates.</p>
 
 ## Made Using
 
 - [React](https://github.com/facebook/react)
 - [Redux](https://github.com/reduxjs/redux) - State Management
+- [Electron Js](https://github.com/electron/electron) - for adding support for desktop application
 - [TypeScript](https://github.com/microsoft/TypeScript) - Strongly Typed No JS
 - [CSS Animations] - Animation Effect
 - [Firebase](https://github.com/firebase/firebase-functions) - Real Time Updates and Authentication
@@ -33,6 +34,11 @@
     13.Theme picker for users to choose different themes for the application
     14.Edit User image crop,resize
     15.Emoji Support
+
+## Run The Application
+
+    1.To Execute as React App Just Replace Firebase Credentials With Your and run "yarn start"
+    2.To Execute as a Desktop Application run "npm run build && yarn dev"
 
 <h2 align="center">Demo</h2>
 
