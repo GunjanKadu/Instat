@@ -37,7 +37,7 @@
 
 ## Run The Application
 
-    1.To Execute as React App Just Replace Firebase Credentials With Your and run "yarn start"
+    1.To Execute as React App Just Replace My Firebase Credentials With Your's and run "yarn start"
     2.To Execute as a Desktop Application run "npm run build && yarn dev"
 
 <h2 align="center">Demo</h2>
